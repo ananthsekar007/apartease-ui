@@ -9,6 +9,9 @@ import { ManagerRoutes } from './routes/ManagerRoutes';
 import { ResidentRoutes } from './routes/ResidentRoutes';
 import { ResidentLanding } from './pages/ResidentLanding';
 import { ResidentHome } from './pages/resident/Home';
+import { VendorRoutes } from './routes/VendorRoutes';
+import { VendorLanding } from './pages/VendorLanding';
+import { VendorHome } from './pages/vendor/Home';
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +33,14 @@ export const router = createBrowserRouter([
   {
     path: ResidentRoutes.Home,
     element: <ResidentHome />
+  },
+  {
+    path: VendorRoutes.Auth,
+    element: <VendorLanding />
+  },
+  {
+    path: VendorRoutes.Home,
+    element: <VendorHome />
   }
 ]);
 

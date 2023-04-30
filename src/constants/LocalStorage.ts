@@ -1,5 +1,6 @@
 import { Manager } from "../types/ManagerTypes";
 import { Resident } from "../types/ResidentTypes";
+import { Vendor } from "../types/VendorTypes";
 
 const AppEazeManager = "AppEazeManager";
 const AppEazeResident = "AppEazeResident";
@@ -43,4 +44,22 @@ export const setResidentAuthToken = (token: string) => {
 
 export const getResidentAuthToken = (): string | null => {
     return localStorage.getItem(AppEazeResidentToken);
+}
+
+export const setVendor = (vendor : Vendor) => {
+    localStorage.setItem(AppEazeVendor, JSON.stringify(vendor));
+}
+
+export const getVendor = () : Resident | null => {
+    let user = localStorage.getItem(AppEazeVendor);
+    if(!user) return null; 
+    return JSON.parse(user);
+}
+
+export const setVendorAuthToken = (token: string) => {
+    localStorage.setItem(AppEazeVendorToken, token);
+}
+
+export const getVendorAuthToken = (): string | null => {
+    return localStorage.getItem(AppEazeVendorToken);
 }
