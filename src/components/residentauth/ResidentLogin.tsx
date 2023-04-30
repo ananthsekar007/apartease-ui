@@ -1,20 +1,19 @@
-import { TextField, Button } from "@mui/material";
-import React from "react";
+import { TextField } from "@mui/material";
 import "../auth.css";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { UIButton } from "../UIComponents/UIButton";
-import { ManagerApiRoutes } from "../../routes/ApiRoutes";
-import { setManager, setManagerAuthToken } from "../../constants/LocalStorage";
+import { ResidentApiRoutes } from "../../routes/ApiRoutes";
+import { setResident, setResidentAuthToken } from "../../constants/LocalStorage";
 import { useNavigate } from "react-router-dom";
-import { ManagerRoutes } from "../../routes/ManagerRoutes";
+import { ResidentRoutes } from "../../routes/ResidentRoutes";
 
-export const ManagerLogin = () => {
+export const ResidentLogin = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
-  const onManagerLogin = async (e: any) => {
+  const onResidentLogin = async (e: any) => {
     e.preventDefault();
 
     const formEntries = new FormData(e.target).entries();
@@ -22,7 +21,7 @@ export const ManagerLogin = () => {
 
     setLoading(true);
 
-    const response = await fetch(ManagerApiRoutes.Login, {
+    const response = await fetch(ResidentApiRoutes.Login, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -32,16 +31,16 @@ export const ManagerLogin = () => {
 
     setLoading(false);
     const loginResponse = await response.json();
-    setManager(loginResponse.manager);
-    setManagerAuthToken(loginResponse.authToken);
+    setResident(loginResponse.resident);
+    setResidentAuthToken(loginResponse.authToken);
 
-    navigate(ManagerRoutes.Home);
+    navigate(ResidentRoutes.Home);
   };
 
   return (
     <>
       <form
-        onSubmit={onManagerLogin}
+        onSubmit={onResidentLogin}
         style={{
           textAlign: "center",
         }}

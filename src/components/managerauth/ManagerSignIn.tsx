@@ -1,5 +1,5 @@
 import { TextField, Button } from "@mui/material";
-import "./auth.css";
+import "../auth.css";
 import { ManagerApiRoutes } from "../../routes/ApiRoutes";
 import React , { useState } from "react";
 import { UIButton } from "../UIComponents/UIButton";

@@ -5,16 +5,12 @@ import {
   Tabs,
   Tab,
   Box,
-  AppBar,
-  Toolbar,
-  Typography,
 } from "@mui/material";
-import logo from "../assets/logo.png";
-import { ManagerSignIn } from "../components/managerauth/ManagerSignIn";
-import { ManagerLogin } from "../components/managerauth/ManagerLogin";
 import { LandingAppBar } from "../components/UIComponents/LandingAppBar";
+import { ResidentLogin } from "../components/residentauth/ResidentLogin";
+import { ResidentSignIn } from "../components/residentauth/ResidentSignIn";
 
-export const ManagerLanding = () => {
+export const ResidentLanding = () => {
   const [tabIndex, setTabIndex] = useState(0);
 
   const handleTabChange = (event: any, newValue: any) => {
@@ -32,10 +28,10 @@ export const ManagerLanding = () => {
           </Tabs>
           <CardContent>
             {tabIndex === 1 && (
-              <ManagerSignIn />
+              <ResidentSignIn />
             )}
             {tabIndex === 0 && (
-              <ManagerLogin />
+              <ResidentLogin />
             )}
           </CardContent>
         </Card>
