@@ -2,10 +2,11 @@ import { TextField } from "@mui/material";
 import "../auth.css";
 import { useState } from "react";
 import { UIButton } from "../UIComponents/UIButton";
-import { ResidentApiRoutes } from "../../routes/ApiRoutes";
-import { setResident, setResidentAuthToken } from "../../constants/LocalStorage";
+import { ResidentApiRoutes, VendorApiRoutes } from "../../routes/ApiRoutes";
+import { setResident, setResidentAuthToken, setVendor, setVendorAuthToken } from "../../constants/LocalStorage";
 import { useNavigate } from "react-router-dom";
 import { ResidentRoutes } from "../../routes/ResidentRoutes";
+import { VendorRoutes } from "../../routes/VendorRoutes";
 
 export const VendorLogin = () => {
 
@@ -21,7 +22,7 @@ export const VendorLogin = () => {
 
     setLoading(true);
 
-    const response = await fetch(ResidentApiRoutes.Login, {
+    const response = await fetch(VendorApiRoutes.Login, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -31,10 +32,10 @@ export const VendorLogin = () => {
 
     setLoading(false);
     const loginResponse = await response.json();
-    setResident(loginResponse.resident);
-    setResidentAuthToken(loginResponse.authToken);
+    setVendor(loginResponse.vendor);
+    setVendorAuthToken(loginResponse.authToken);
 
-    navigate(ResidentRoutes.Home);
+    navigate(VendorRoutes.Home);
   };
 
   return (
