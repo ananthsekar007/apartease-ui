@@ -13,7 +13,7 @@ interface ApartmentCardProps {
   apartment: Apartment;
 }
 
-const styles = {
+const styles: any = {
   media: {
     height: 150,
     position: "relative",
@@ -60,9 +60,8 @@ const ApartmentCard = ({ apartment: {name, city, state, zip, street, ...rest} }:
         style={{
           flexGrow: 1,
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "row",
           justifyContent: "space-between",
-          flexDirection : "row"
         }}
       >
         <div>

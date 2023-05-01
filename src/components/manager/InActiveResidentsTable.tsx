@@ -16,7 +16,7 @@ import { Resident, ResidentChangeStatusType } from "../../types/ResidentTypes";
 import { UIButton } from "../UIComponents/UIButton";
 import { ResidentApiRoutes } from "../../routes/ApiRoutes";
 
-const styles = {
+const styles: any = {
   table: {
     borderRadius: 20,
     display: "flex",
