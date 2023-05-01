@@ -28,7 +28,7 @@ export const ManagerLanding = () => {
         <Card style={{ width: 450 }}>
           <Tabs value={tabIndex} onChange={handleTabChange} centered>
             <Tab label="Login" />
-            <Tab label="Sign In" />
+            <Tab label="Sign Up" />
           </Tabs>
           <CardContent>
             {tabIndex === 1 && (

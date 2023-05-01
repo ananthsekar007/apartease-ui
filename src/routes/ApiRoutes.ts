@@ -8,6 +8,9 @@ export const ManagerApiRoutes = {
 export const ResidentApiRoutes = {
     SignIn : `${BASE_API_URL}/auth/resident/signin`,
     Login : `${BASE_API_URL}/auth/resident/login`,
+    GetActiveResidents: `${BASE_API_URL}/resident/get/active`,
+    GetInactiveResidents: `${BASE_API_URL}/resident/get/inactive`,
+    ChangeResidentStatus: `${BASE_API_URL}/resident/change-status`
 }
 
 export const VendorApiRoutes = {
@@ -16,7 +19,9 @@ export const VendorApiRoutes = {
 }
 
 export const ApartmentApiRoutes = {
-    GetAllApartments: `${BASE_API_URL}/apartments/get`
+    GetAllApartments: `${BASE_API_URL}/apartments/get`,
+    AddApartment: `${BASE_API_URL}/apartments/add`,
+    GetApartmentForManager : `${BASE_API_URL}/apartments/get`
 }
 
 export const CompanyApiRoutes = {

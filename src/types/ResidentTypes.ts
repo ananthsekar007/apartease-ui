@@ -16,3 +16,8 @@ export interface Resident {
     updatedAt: Date;
     apartment?: Apartment
 }
+
+export interface ResidentChangeStatusType {
+    residentId: number;
+    status: boolean;
+}

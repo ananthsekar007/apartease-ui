@@ -102,7 +102,7 @@ export const ManagerSignIn = () => {
           className="form-element"
           loading={loading}
         >
-          Sign In
+          Sign Up
         </UIButton>
       </form>
     </>

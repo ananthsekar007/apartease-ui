@@ -226,7 +226,7 @@ const AddVendor = (props: AddVendorProps) => {
           className="form-element"
           loading={loading}
         >
-          SignIn
+          Sign Up
         </UIButton>
     </form>
     </>
@@ -259,7 +259,7 @@ export const VendorSignIn = () => {
           <StepLabel>Create Company</StepLabel>
         </Step>
         <Step>
-          <StepLabel>SignIn</StepLabel>
+          <StepLabel>Sign Up</StepLabel>
         </Step>
       </Stepper>
       {activeStep === 0 && (
