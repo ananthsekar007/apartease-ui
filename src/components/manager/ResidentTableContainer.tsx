@@ -19,6 +19,7 @@ import { ResidentApiRoutes } from "../../routes/ApiRoutes";
 import { Resident } from "../../types/ResidentTypes";
 import { ActiveResidentsTable } from "./ActiveResidentsTable";
 import { InActiveResidentsTable } from "./InActiveResidentsTable";
+import { showErrorMessage } from "../Toast";
 
 const styles = {
   tableContainer: {
@@ -32,19 +33,17 @@ export const ResidentTableContainer = () => {
   const [activeResidents, setActiveResidents] = useState<Resident[]>();
   const [inActiveResidents, setInActiveResidents] = useState<Resident[]>();
 
-  const handleApprove = (id: any) => {
-    console.log(`Approving resident with id ${id}`);
-  };
-
-  const handleDeactivate = (id: any) => {
-    console.log(`Deactivating resident with id ${id}`);
-  };
-
   const getActiveResidents = async () => {
     const manager = getManager();
     const response = await fetch(
       `${ResidentApiRoutes.GetActiveResidents}/${manager?.managerId}`
     );
+
+    if(!response.ok) {
+      const error = await response.text();
+      showErrorMessage(error);
+      return;
+    }
 
     const activeResidents: Resident[] = await response.json();
 
@@ -56,6 +55,12 @@ export const ResidentTableContainer = () => {
     const response = await fetch(
       `${ResidentApiRoutes.GetInactiveResidents}/${manager?.managerId}`
     );
+
+    if(!response.ok) {
+      const error = await response.text();
+      showErrorMessage(error);
+      return;
+    }
 
     const inActiveResidents: Resident[] = await response.json();
 

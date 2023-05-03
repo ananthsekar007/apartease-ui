@@ -5,6 +5,7 @@ import "../../auth.css";
 import { UIButton } from "../../UIComponents/UIButton";
 import { ApartmentApiRoutes } from "../../../routes/ApiRoutes";
 import { getManager, getManagerAuthToken } from "../../../constants/LocalStorage";
+import { showErrorMessage } from "../../Toast";
 
 interface AddApartmentProps {
   onSuccess: () => void;
@@ -34,6 +35,13 @@ export const AddApartmentModal = (props: AddApartmentProps) => {
         body: JSON.stringify({...addApartmentInput, managerId: manager?.managerId})
     })
     setLoading(false);
+
+    if(!response.ok) {
+      const error = await response.text();
+      showErrorMessage(error);
+      return;
+    }
+
     props.onCloseModal();
     props.onSuccess();
     

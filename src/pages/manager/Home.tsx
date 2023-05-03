@@ -8,6 +8,7 @@ import { ApartmentApiRoutes } from "../../routes/ApiRoutes";
 import { Apartment } from "../../types/ApartmentTypes";
 import ApartmentCard from "../../components/manager/ApartmentCard";
 import { ResidentTableContainer } from "../../components/manager/ResidentTableContainer";
+import { showErrorMessage } from "../../components/Toast";
 
 export const ManagerHome = () => {
   const [addApartmentOpen, setAddApartmentOpen] = useState<boolean>(false);
@@ -18,6 +19,13 @@ export const ManagerHome = () => {
     const response = await fetch(
       `${ApartmentApiRoutes.GetApartmentForManager}/${manager?.managerId}`
     );
+
+    if(!response.ok) {
+      const error = await response.text();
+      showErrorMessage(error);
+      return;
+    }
+
     const apartmentData = await response.json();
     setApartment(apartmentData);
   };

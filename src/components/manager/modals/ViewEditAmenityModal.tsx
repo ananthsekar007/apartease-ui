@@ -4,6 +4,7 @@ import { UIButton } from "../../UIComponents/UIButton";
 import { useState } from "react";
 import { Amenity } from "../../../types/AmenityTypes";
 import { AmenityApiRoutes } from "../../../routes/ApiRoutes";
+import { showErrorMessage } from "../../Toast";
 
 interface ViewEditAmenityModalProps {
   open: boolean;
@@ -69,6 +70,12 @@ export const ViewEditAmenityModal = (props: ViewEditAmenityModalProps) => {
       }),
     });
     setLoading(false);
+
+    if(!response.ok) {
+      const error = await response.text();
+      showErrorMessage(error);
+      return;
+    }
 
     props.onCloseModal();
 

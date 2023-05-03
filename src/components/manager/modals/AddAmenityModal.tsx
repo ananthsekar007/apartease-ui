@@ -5,6 +5,7 @@ import "../../auth.css";
 import { FormControlLabel, Switch, TextField } from "@mui/material";
 import { AmenityApiRoutes } from "../../../routes/ApiRoutes";
 import { Apartment } from "../../../types/ApartmentTypes";
+import { showErrorMessage } from "../../Toast";
 
 interface AddAmenityModalProps {
   open: boolean;
@@ -47,6 +48,12 @@ export const AddAmenityModal = (props: AddAmenityModalProps) => {
       }),
     });
     setLoading(false);
+
+    if(!response.ok) {
+      const error = await response.text();
+      showErrorMessage(error);
+      return;
+    }
 
     props.onSuccess(props?.apartmentId);
     props.onCloseModal();

@@ -7,6 +7,7 @@ import { ManagerApiRoutes } from "../../routes/ApiRoutes";
 import { setManager, setManagerAuthToken } from "../../constants/LocalStorage";
 import { useNavigate } from "react-router-dom";
 import { ManagerRoutes } from "../../routes/ManagerRoutes";
+import { showErrorMessage, showSuccessMessage } from "../Toast";
 
 export const ManagerLogin = () => {
 
@@ -30,6 +31,11 @@ export const ManagerLogin = () => {
         body: JSON.stringify(loginInput)
     })
 
+    if(!response.ok) {
+      const error = await response.text();
+      showErrorMessage(error);
+      return;
+    }
     setLoading(false);
     const loginResponse = await response.json();
     setManager(loginResponse.manager);

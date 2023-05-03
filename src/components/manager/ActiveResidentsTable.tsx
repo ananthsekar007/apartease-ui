@@ -15,6 +15,7 @@ import {
 import { Resident, ResidentChangeStatusType } from "../../types/ResidentTypes";
 import { UIButton } from "../UIComponents/UIButton";
 import { ResidentApiRoutes } from "../../routes/ApiRoutes";
+import { showErrorMessage } from "../Toast";
 
 const styles: any = {
   table: {
@@ -55,6 +56,12 @@ export const ActiveResidentsTable = ({
     });
 
     setLoading(false);
+
+    if(!response.ok) {
+      const error = await response.text();
+      showErrorMessage(error);
+      return;
+    }
 
     onUpdateSuccess();
 

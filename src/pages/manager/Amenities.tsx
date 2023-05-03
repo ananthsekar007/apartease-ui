@@ -10,6 +10,7 @@ import { AddAmenityModal } from "../../components/manager/modals/AddAmenityModal
 import AmenityImage from "../../assets/Amenity.jpg";
 import { AmenityCard } from "../../components/manager/AmenityCard";
 import { Amenity } from "../../types/AmenityTypes";
+import { showErrorMessage } from "../../components/Toast";
 
 const items = [
   { id: 1, name: "Item 1", imageUrl: AmenityImage },
@@ -30,6 +31,13 @@ export const ManageAmenities = () => {
     const response = await fetch(
       `${ApartmentApiRoutes.GetApartmentForManager}/${manager?.managerId}`
     );
+
+    if (!response.ok) {
+      const error = await response.text();
+      showErrorMessage(error);
+      return;
+    }
+
     const apartmentData = await response.json();
     setApartment(apartmentData);
   };
@@ -38,6 +46,11 @@ export const ManageAmenities = () => {
     const response = await fetch(
       `${AmenityApiRoutes.GetAmenityForApartment}/${apartmentId}`
     );
+    if (!response.ok) {
+      const error = await response.text();
+      showErrorMessage(error);
+      return;
+    }
     const amenityData = await response.json();
     setAmenities(amenityData);
   };
@@ -45,12 +58,6 @@ export const ManageAmenities = () => {
   useEffect(() => {
     getApartmentForManager();
   }, []);
-
-  useEffect(() => {
-    if (amenities && amenities.length > 0) {
-      console.log({ amenities });
-    }
-  }, [amenities]);
 
   useEffect(() => {
     if (apartment && apartment.apartmentId) {
@@ -97,13 +104,24 @@ export const ManageAmenities = () => {
               {amenities && amenities.length > 0 ? (
                 <>
                   <Grid container spacing={2} marginTop={2}>
-                    {amenities && amenities.length > 0 && amenities.map((amenity: Amenity) => (
-                      <Grid item xs={12} sm={6} md={4} key={amenity.amenityId}>
-                        <AmenityCard amenity={amenity} onEditSuccess={() => {
-                          getAmenitiesForApartment(amenity.apartmentId);
-                        }} />
-                      </Grid>
-                    ))}
+                    {amenities &&
+                      amenities.length > 0 &&
+                      amenities.map((amenity: Amenity) => (
+                        <Grid
+                          item
+                          xs={12}
+                          sm={6}
+                          md={4}
+                          key={amenity.amenityId}
+                        >
+                          <AmenityCard
+                            amenity={amenity}
+                            onEditSuccess={() => {
+                              getAmenitiesForApartment(amenity.apartmentId);
+                            }}
+                          />
+                        </Grid>
+                      ))}
                   </Grid>
                 </>
               ) : (

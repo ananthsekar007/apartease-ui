@@ -7,6 +7,7 @@ import { setResident, setResidentAuthToken, setVendor, setVendorAuthToken } from
 import { useNavigate } from "react-router-dom";
 import { ResidentRoutes } from "../../routes/ResidentRoutes";
 import { VendorRoutes } from "../../routes/VendorRoutes";
+import { showErrorMessage } from "../Toast";
 
 export const VendorLogin = () => {
 
@@ -30,7 +31,15 @@ export const VendorLogin = () => {
         body: JSON.stringify(loginInput)
     })
 
+
     setLoading(false);
+
+    if(!response.ok) {
+      const error = await response.text();
+      showErrorMessage(error);
+      return;
+    }
+
     const loginResponse = await response.json();
     setVendor(loginResponse.vendor);
     setVendorAuthToken(loginResponse.authToken);

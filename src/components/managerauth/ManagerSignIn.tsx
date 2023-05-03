@@ -6,6 +6,7 @@ import { UIButton } from "../UIComponents/UIButton";
 import { setManager, setManagerAuthToken } from "../../constants/LocalStorage";
 import { useNavigate } from "react-router-dom";
 import { ManagerRoutes } from "../../routes/ManagerRoutes";
+import { showErrorMessage } from "../Toast";
 
 export const ManagerSignIn = () => {
 
@@ -30,6 +31,12 @@ export const ManagerSignIn = () => {
     })
 
     setLoading(false);
+
+    if(!response.ok) {
+      const error = await response.text();
+      showErrorMessage(error);
+      return;
+    }
     const signInResponse = await response.json();
     setManager(signInResponse.manager);
     setManagerAuthToken(signInResponse.authToken);

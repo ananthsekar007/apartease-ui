@@ -18,6 +18,7 @@ import { Company } from "../../types/CompanyTypes";
 import { setVendor, setVendorAuthToken } from "../../constants/LocalStorage";
 import { useNavigate } from "react-router-dom";
 import { VendorRoutes } from "../../routes/VendorRoutes";
+import { showErrorMessage } from "../Toast";
 
 const styles = {
   stepper: {
@@ -64,6 +65,12 @@ const CreateCompany = (props: CreateCompanyProps) => {
         categoryId: Number(companyCreationInput.categoryId),
       }),
     });
+
+    if(!response.ok) {
+      const error = await response.text();
+      showErrorMessage(error);
+      return;
+    }
 
     const companyDetails: Company = await response.json();
 
@@ -152,6 +159,13 @@ const AddVendor = (props: AddVendorProps) => {
       });
   
       setLoading(false);
+
+      if(!response.ok) {
+        const error = await response.text();
+        showErrorMessage(error);
+        return;
+      }
+
       const signInResponse = await response.json();
       setVendor(signInResponse.vendor);
       setVendorAuthToken(signInResponse.authToken);
@@ -244,6 +258,11 @@ export const VendorSignIn = () => {
   };
   const getCategories = async () => {
     const response = await fetch(CategoryApiRoutes.GetCategoreies);
+    if(!response.ok) {
+      const error = await response.text();
+      showErrorMessage(error);
+      return;
+    }
     const categoriesList = await response.json();
     setCategories(categoriesList);
   };

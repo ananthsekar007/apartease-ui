@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { ManagerRoutes } from "../../routes/ManagerRoutes";
 import { Apartment } from "../../types/ApartmentTypes";
 import { ResidentRoutes } from "../../routes/ResidentRoutes";
+import { showErrorMessage } from "../Toast";
 
 export const ResidentSignIn = () => {
   const [loading, setLoading] = useState<boolean>();
@@ -50,6 +51,13 @@ export const ResidentSignIn = () => {
     });
 
     setLoading(false);
+
+    if(!response.ok) {
+      const error = await response.text();
+      showErrorMessage(error);
+      return;
+    }
+
     const signInResponse = await response.json();
     setResident(signInResponse.resident);
     setResidentAuthToken(signInResponse.authToken);

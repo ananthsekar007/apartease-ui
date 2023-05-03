@@ -6,6 +6,7 @@ import { ResidentApiRoutes } from "../../routes/ApiRoutes";
 import { setResident, setResidentAuthToken } from "../../constants/LocalStorage";
 import { useNavigate } from "react-router-dom";
 import { ResidentRoutes } from "../../routes/ResidentRoutes";
+import { showErrorMessage } from "../Toast";
 
 export const ResidentLogin = () => {
 
@@ -30,6 +31,13 @@ export const ResidentLogin = () => {
     })
 
     setLoading(false);
+
+    if(!response.ok) {
+      const error = await response.text();
+      showErrorMessage(error);
+      return;
+    }
+
     const loginResponse = await response.json();
     setResident(loginResponse.resident);
     setResidentAuthToken(loginResponse.authToken);
