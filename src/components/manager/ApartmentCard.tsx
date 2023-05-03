@@ -13,7 +13,7 @@ interface ApartmentCardProps {
   apartment: Apartment;
 }
 
-const styles: any = {
+export const cardMediaStyles: any = {
   media: {
     height: 150,
     position: "relative",
@@ -36,7 +36,7 @@ const ApartmentCard = ({ apartment: {name, city, state, zip, street, ...rest} }:
     const GetAddress = () => {
         return (
             <>
-                <Typography variant="body1"> {` ${street}, ${city}, ${state} - ${zip} `} </Typography>
+                <Typography variant="body1" color={"GrayText"}> {` ${street}, ${city}, ${state} - ${zip} `} </Typography>
             </>
         )
     }
@@ -53,8 +53,8 @@ const ApartmentCard = ({ apartment: {name, city, state, zip, street, ...rest} }:
         cursor: "pointer"
       }}
     >
-      <CardMedia style={styles.media} image={ApartmentBackground}>
-        <div style={styles.fadeOverlay} />
+      <CardMedia style={cardMediaStyles.media} image={ApartmentBackground}>
+        <div style={cardMediaStyles.fadeOverlay} />
       </CardMedia>
       <CardContent
         style={{

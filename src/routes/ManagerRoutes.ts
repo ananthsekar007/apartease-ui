@@ -1,4 +1,5 @@
 export const ManagerRoutes = {
     Auth : "/manager",
-    Home: "/manager/home"
+    Home: "/manager/home",
+    Amenities: "/manager/amenities"
 }

@@ -73,9 +73,9 @@ export const ResidentTableContainer = () => {
 
   return (
     <div style={{ ...styles.tableContainer }}>
-      <ActiveResidentsTable residents={activeResidents} onUpdateSuccess={getResidents} />
+      <ActiveResidentsTable residents={inActiveResidents} onUpdateSuccess={getResidents} />
       <InActiveResidentsTable
-        residents={inActiveResidents}
+        residents={activeResidents}
         onUpdateSuccess={getResidents}
       />
     </div>

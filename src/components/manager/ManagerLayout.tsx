@@ -17,12 +17,11 @@ import {
   Box,
   AppBar,
 } from "@mui/material";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import { ManagerRoutes } from "../../routes/ManagerRoutes";
 import HomeIcon from '@mui/icons-material/Home';
+import PoolIcon from '@mui/icons-material/Pool';
 
 interface ManagerLayoutProps {
   children: any;
@@ -39,6 +38,11 @@ const drawerItems: DrawerItemProps[] = [
         text: "Home",
         navigateRoute: ManagerRoutes.Home,
         icon: HomeIcon
+    },
+    {
+      text: "Amenities",
+      navigateRoute: ManagerRoutes.Amenities,
+      icon: PoolIcon
     }
 ]
 

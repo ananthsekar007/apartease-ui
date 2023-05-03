@@ -43,7 +43,7 @@ export const ActiveResidentsTable = ({
 
     const data: ResidentChangeStatusType = {
         residentId: residentId,
-        status: false
+        status: true
     }
 
     const response = await fetch(`${ResidentApiRoutes.ChangeResidentStatus}`, {

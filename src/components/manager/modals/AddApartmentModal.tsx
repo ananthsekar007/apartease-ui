@@ -4,7 +4,7 @@ import { TextField } from "@mui/material";
 import "../../auth.css";
 import { UIButton } from "../../UIComponents/UIButton";
 import { ApartmentApiRoutes } from "../../../routes/ApiRoutes";
-import { getManager } from "../../../constants/LocalStorage";
+import { getManager, getManagerAuthToken } from "../../../constants/LocalStorage";
 
 interface AddApartmentProps {
   onSuccess: () => void;

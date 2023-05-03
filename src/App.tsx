@@ -12,6 +12,7 @@ import { ResidentHome } from './pages/resident/Home';
 import { VendorRoutes } from './routes/VendorRoutes';
 import { VendorLanding } from './pages/VendorLanding';
 import { VendorHome } from './pages/vendor/Home';
+import { ManageAmenities } from './pages/manager/Amenities';
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
   {
     path: VendorRoutes.Home,
     element: <VendorHome />
+  },
+  {
+    path: ManagerRoutes.Amenities,
+    element: <ManageAmenities />
   }
 ]);
 

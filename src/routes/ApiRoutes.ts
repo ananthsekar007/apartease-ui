@@ -33,3 +33,9 @@ export const CompanyApiRoutes = {
 export const CategoryApiRoutes  = {
     GetCategoreies: `${BASE_API_URL}/category/get`
 }
+
+export const AmenityApiRoutes = {
+    AddAmenity: `${BASE_API_URL}/amenity/add`,
+    UpdateAmenity: `${BASE_API_URL}/amenity/update`,
+    GetAmenityForApartment: `${BASE_API_URL}/amenity/get`
+}
