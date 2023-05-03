@@ -30,13 +30,13 @@ export const ManagerLogin = () => {
         },
         body: JSON.stringify(loginInput)
     })
+    setLoading(false);
 
     if(!response.ok) {
       const error = await response.text();
       showErrorMessage(error);
       return;
     }
-    setLoading(false);
     const loginResponse = await response.json();
     setManager(loginResponse.manager);
     setManagerAuthToken(loginResponse.authToken);

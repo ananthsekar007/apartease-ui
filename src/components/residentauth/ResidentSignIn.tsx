@@ -25,6 +25,13 @@ export const ResidentSignIn = () => {
 
   const getApartments = async () => {
     const response = await fetch(ApartmentApiRoutes.GetAllApartments);
+
+    if(!response.ok) {
+      const error = await response.text();
+      showErrorMessage(error);
+      return;
+    }
+
     const apartmentList = await response.json();
     setApartments(apartmentList);
   };
