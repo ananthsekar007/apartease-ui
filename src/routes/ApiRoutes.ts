@@ -10,7 +10,8 @@ export const ResidentApiRoutes = {
     Login : `${BASE_API_URL}/auth/resident/login`,
     GetActiveResidents: `${BASE_API_URL}/resident/get/active`,
     GetInactiveResidents: `${BASE_API_URL}/resident/get/inactive`,
-    ChangeResidentStatus: `${BASE_API_URL}/resident/change-status`
+    ChangeResidentStatus: `${BASE_API_URL}/resident/change-status`,
+    GetResidentActivityStatus: `${BASE_API_URL}/resident/get/status`
 }
 
 export const VendorApiRoutes = {
@@ -27,7 +28,8 @@ export const ApartmentApiRoutes = {
 export const CompanyApiRoutes = {
     CreateCompany :  `${BASE_API_URL}/company/create`,
     EditCompany:   `${BASE_API_URL}/company/edit`,
-    GetAllCompanies: `${BASE_API_URL}/company/get`
+    GetAllCompanies: `${BASE_API_URL}/company/get`,
+    DeleteCompany : `${BASE_API_URL}/company`
 }
 
 export const CategoryApiRoutes  = {
@@ -37,5 +39,9 @@ export const CategoryApiRoutes  = {
 export const AmenityApiRoutes = {
     AddAmenity: `${BASE_API_URL}/amenity/add`,
     UpdateAmenity: `${BASE_API_URL}/amenity/update`,
-    GetAmenityForApartment: `${BASE_API_URL}/amenity/get`
+    GetAmenityForApartment: `${BASE_API_URL}/amenity/get`,
+}
+
+export const AmenityBookingApiRoutes = {
+    BookAmenity: `${BASE_API_URL}/amenitybooking/add`
 }

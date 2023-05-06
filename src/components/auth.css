@@ -1,3 +1,15 @@
 .auth-form .form-element{
     margin-bottom: 20px;
 }
+
+.date-time-picker {
+    height: 40px;
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: rgb(226, 226, 226);
+    width: 100%;
+}
+
+.date-time-picker:hover {
+    border-color: black;
+}

@@ -117,7 +117,7 @@ export const AddAmenityModal = (props: AddAmenityModalProps) => {
               onKeyDown: handleKeyDown,
             }}
             inputProps={{
-              min: 0,
+              min: 1,
               step: 1,
               max: 4,
             }}

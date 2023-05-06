@@ -42,7 +42,7 @@ export const ResidentLogin = () => {
     setResident(loginResponse.resident);
     setResidentAuthToken(loginResponse.authToken);
 
-    navigate(ResidentRoutes.Home);
+    navigate(ResidentRoutes.Amenities);
   };
 
   return (

@@ -11,7 +11,11 @@ import {
   MenuItem,
 } from "@mui/material";
 import { Category } from "../../types/CategoryTypes";
-import { CategoryApiRoutes, CompanyApiRoutes, VendorApiRoutes } from "../../routes/ApiRoutes";
+import {
+  CategoryApiRoutes,
+  CompanyApiRoutes,
+  VendorApiRoutes,
+} from "../../routes/ApiRoutes";
 import "../auth.css";
 import { UIButton } from "../UIComponents/UIButton";
 import { Company } from "../../types/CompanyTypes";
@@ -66,7 +70,7 @@ const CreateCompany = (props: CreateCompanyProps) => {
       }),
     });
 
-    if(!response.ok) {
+    if (!response.ok) {
       const error = await response.text();
       showErrorMessage(error);
       return;
@@ -134,11 +138,10 @@ const CreateCompany = (props: CreateCompanyProps) => {
 };
 
 interface AddVendorProps {
-    companyId: number;
+  companyId: number;
 }
 
 const AddVendor = (props: AddVendorProps) => {
-
   const [loading, setLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
@@ -151,34 +154,32 @@ const AddVendor = (props: AddVendorProps) => {
     setLoading(true);
 
     const response = await fetch(VendorApiRoutes.SignIn, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({...vendorInput, companyId: props.companyId}),
-      });
-  
-      setLoading(false);
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...vendorInput, companyId: props.companyId }),
+    });
 
-      if(!response.ok) {
-        const error = await response.text();
-        showErrorMessage(error);
-        return;
-      }
+    setLoading(false);
 
-      const signInResponse = await response.json();
-      setVendor(signInResponse.vendor);
-      setVendorAuthToken(signInResponse.authToken);
-  
-      navigate(VendorRoutes.Home);
+    if (!response.ok) {
+      const error = await response.text();
+      showErrorMessage(error);
+      return;
+    }
 
+    const signInResponse = await response.json();
+    setVendor(signInResponse.vendor);
+    setVendorAuthToken(signInResponse.authToken);
+
+    navigate(VendorRoutes.Home);
   };
 
   return (
     <>
-    <form className="auth-form" onSubmit={handleSubmit}>
-
-    <TextField
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <TextField
           label="Email"
           name="email"
           fullWidth
@@ -233,7 +234,7 @@ const AddVendor = (props: AddVendorProps) => {
           fullWidth
           className="form-element"
         />
-      <UIButton
+        <UIButton
           type="submit"
           fullWidth
           variant="contained"
@@ -242,7 +243,7 @@ const AddVendor = (props: AddVendorProps) => {
         >
           Sign Up
         </UIButton>
-    </form>
+      </form>
     </>
   );
 };
@@ -258,7 +259,7 @@ export const VendorSignIn = () => {
   };
   const getCategories = async () => {
     const response = await fetch(CategoryApiRoutes.GetCategoreies);
-    if(!response.ok) {
+    if (!response.ok) {
       const error = await response.text();
       showErrorMessage(error);
       return;
@@ -291,11 +292,7 @@ export const VendorSignIn = () => {
           handleNext={handleNext}
         />
       )}
-      {activeStep === 1 && (
-        <AddVendor
-            companyId={createdCompanyId}
-        />
-      )}
+      {activeStep === 1 && <AddVendor companyId={createdCompanyId} />}
     </>
   );
 };

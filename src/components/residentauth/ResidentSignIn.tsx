@@ -69,7 +69,7 @@ export const ResidentSignIn = () => {
     setResident(signInResponse.resident);
     setResidentAuthToken(signInResponse.authToken);
 
-    navigate(ResidentRoutes.Home);
+    navigate(ResidentRoutes.Amenities);
   };
 
   return (

@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 import { ManagerRoutes } from "../../routes/ManagerRoutes";
 import HomeIcon from '@mui/icons-material/Home';
 import PoolIcon from '@mui/icons-material/Pool';
+import { ResidentRoutes } from "../../routes/ResidentRoutes";
 
 interface ManagerLayoutProps {
   children: any;
@@ -35,18 +36,13 @@ interface DrawerItemProps {
 
 const drawerItems: DrawerItemProps[] = [
     {
-        text: "Home",
-        navigateRoute: ManagerRoutes.Home,
-        icon: HomeIcon
-    },
-    {
       text: "Amenities",
-      navigateRoute: ManagerRoutes.Amenities,
+      navigateRoute: ResidentRoutes.Amenities,
       icon: PoolIcon
     }
 ]
 
-export const ManagerLayout = ({ children }: ManagerLayoutProps) => {
+export const ResidentLayout = ({ children }: ManagerLayoutProps) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 

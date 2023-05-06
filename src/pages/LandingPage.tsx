@@ -4,6 +4,8 @@ import { AuthCardDetails } from "../constants/AppConstants";
 import logo from "../assets/logo.png";
 import { LandingAppBar } from "../components/UIComponents/LandingAppBar";
 
+
+
 export const LandingPage = () => {
   return (
     <>

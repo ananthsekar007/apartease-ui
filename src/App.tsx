@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
     element: <ResidentLanding />
   },
   {
-    path: ResidentRoutes.Home,
+    path: ResidentRoutes.Amenities,
     element: <ResidentHome />
   },
   {
