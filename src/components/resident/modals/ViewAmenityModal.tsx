@@ -14,7 +14,7 @@ export const ViewAmenityModal = (props: ViewAmenityModalProps) => {
       <UIModel
         isOpen={props.open}
         onClose={props.onClose}
-        title={`View ${props.amenity.amenityName} Amenity`}
+        title={`${props.amenity.amenityName} Amenity`}
       >
         <Typography variant="body1">
           <strong>Description : </strong>{props.amenity.amenityDescription}

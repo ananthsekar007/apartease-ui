@@ -19,8 +19,7 @@ import {
 } from "@mui/material";
 import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
-import { ManagerRoutes } from "../../routes/ManagerRoutes";
-import HomeIcon from '@mui/icons-material/Home';
+import BookIcon from '@mui/icons-material/Book';
 import PoolIcon from '@mui/icons-material/Pool';
 import { ResidentRoutes } from "../../routes/ResidentRoutes";
 
@@ -39,6 +38,11 @@ const drawerItems: DrawerItemProps[] = [
       text: "Amenities",
       navigateRoute: ResidentRoutes.Amenities,
       icon: PoolIcon
+    },
+    {
+      text: "My Bookings",
+      navigateRoute: ResidentRoutes.Bookings,
+      icon: BookIcon
     }
 ]
 

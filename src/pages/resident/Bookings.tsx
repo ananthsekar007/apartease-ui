@@ -4,13 +4,15 @@ import { getResident } from "../../constants/LocalStorage";
 import { ResidentApiRoutes } from "../../routes/ApiRoutes";
 import { showErrorMessage } from "../../components/Toast";
 import { ResidentAmenities } from "../../components/resident/ResidentAmenities";
+import { ResidentBookingScreen } from "../../components/resident/ResidentBookings";
 
 
-export const ResidentHome = () => {
+export const ResidentBookings = () => {
   const [isApproved, setApproved] = useState<boolean>(false);
 
   const getActivityStatus = async () => {
     const resident = getResident();
+
     const response = await fetch(
       `${ResidentApiRoutes.GetResidentActivityStatus}/${resident?.residentId}`
     );
@@ -28,5 +30,5 @@ export const ResidentHome = () => {
     getActivityStatus();
   }, []);
 
-  return <>{isApproved ? <ResidentAmenities /> : <ResidentPending />}</>;
+  return <>{isApproved ? <ResidentBookingScreen /> : <ResidentPending />}</>;
 };

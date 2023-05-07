@@ -43,5 +43,7 @@ export const AmenityApiRoutes = {
 }
 
 export const AmenityBookingApiRoutes = {
-    BookAmenity: `${BASE_API_URL}/amenitybooking/add`
+    BookAmenity: `${BASE_API_URL}/amenitybooking/add`,
+    EditAmenityBooking: `${BASE_API_URL}/amenitybooking/edit`,
+    GetAmenitiesForResident: `${BASE_API_URL}/amenitybooking/get`
 }

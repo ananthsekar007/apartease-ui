@@ -13,6 +13,7 @@ import { VendorRoutes } from './routes/VendorRoutes';
 import { VendorLanding } from './pages/VendorLanding';
 import { VendorHome } from './pages/vendor/Home';
 import { ManageAmenities } from './pages/manager/Amenities';
+import { ResidentBookings } from './pages/resident/Bookings';
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
   {
     path: ResidentRoutes.Amenities,
     element: <ResidentHome />
+  },
+  {
+    path: ResidentRoutes.Bookings,
+    element: <ResidentBookings />
   },
   {
     path: VendorRoutes.Auth,

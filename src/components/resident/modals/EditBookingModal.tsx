@@ -1,55 +1,59 @@
-import { Amenity } from "../../../types/AmenityTypes";
+import { AmenityBooking } from "../../../types/AmenityTypes";
 import { UIModel } from "../../UIComponents/UIModal";
 import { TextField, Tooltip } from "@mui/material";
 import { Info } from "@mui/icons-material";
-import "../../auth.css";
 import { UIButton } from "../../UIComponents/UIButton";
 import { useState } from "react";
-import { AmenityBookingApiRoutes } from "../../../routes/ApiRoutes";
 import { getResident } from "../../../constants/LocalStorage";
-import { showErrorMessage, showSuccessMessage } from "../../Toast";
+import { AmenityBookingApiRoutes } from "../../../routes/ApiRoutes";
+import { showErrorMessage } from "../../Toast";
 
-interface BookAmenityProps {
+interface EditBookingProps {
+  bookingDetails: AmenityBooking | undefined;
   open: boolean;
   onClose: () => void;
-  amenity: Amenity;
+  onSuccess: () => void;
 }
 
-export const BookAmenityModal = (props: BookAmenityProps) => {
+export const EditBookingModal = (props: EditBookingProps) => {
   const [loading, setLoading] = useState<boolean>(false);
 
-  const onSubmit = async (e: any) => {
+  const onEdit = async (e: any) => {
     e.preventDefault();
 
     const formEntries = new FormData(e.target).entries();
     const bookAmenityInput = Object.fromEntries(formEntries);
     const resident = getResident();
+    const { bookingDetails } = props;
+
+    const body = {
+      amenityId: bookingDetails?.amenityId,
+      guestName: bookAmenityInput.guestName,
+      guestEmail: bookAmenityInput.guestEmail,
+      from: bookAmenityInput.from,
+      to: bookAmenityInput.to,
+      residentId: resident?.residentId,
+      amenityBookingId: bookingDetails?.amenityBookingId,
+    };
 
     setLoading(true);
 
-    const response = await fetch(AmenityBookingApiRoutes.BookAmenity, {
-      method: "POST",
+    const response = await fetch(AmenityBookingApiRoutes.EditAmenityBooking, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        ...bookAmenityInput,
-        amenityId: props.amenity.amenityId,
-        residentId: resident?.residentId,
-      }),
+      body: JSON.stringify(body),
     });
 
     setLoading(false);
-    const responseText = await response.text();
 
     if (!response.ok) {
-      showErrorMessage(responseText);
+      const error = await response.text();
+      showErrorMessage(error);
       return;
     }
-
-    showSuccessMessage(responseText);
-
-    props.onClose();
+    props.onSuccess();
   };
 
   return (
@@ -57,21 +61,23 @@ export const BookAmenityModal = (props: BookAmenityProps) => {
       <UIModel
         isOpen={props.open}
         onClose={props.onClose}
-        title={`Book ${props.amenity.amenityName} Amenity`}
+        title={`Edit Booking`}
         hideCancel
       >
-        <form className="auth-form" onSubmit={onSubmit}>
+        <form className="auth-form" onSubmit={onEdit}>
           <TextField
             label="Guest Name"
             name="guestName"
             fullWidth
             className="form-element"
+            defaultValue={props.bookingDetails?.guestName}
           />
           <TextField
             label="Guest Email"
             name="guestEmail"
             className="form-element"
             fullWidth
+            defaultValue={props.bookingDetails?.guestEmail}
           />
           <div
             style={{
@@ -90,6 +96,7 @@ export const BookAmenityModal = (props: BookAmenityProps) => {
             className="date-time-picker form-element"
             name="from"
             id="fromDate"
+            defaultValue={props.bookingDetails?.from}
           />
           <label htmlFor="toDate">To</label>
           <br />
@@ -98,6 +105,7 @@ export const BookAmenityModal = (props: BookAmenityProps) => {
             className="date-time-picker form-element"
             name="to"
             id="toDate"
+            defaultValue={props.bookingDetails?.to}
           />
           <UIButton
             loading={loading}
