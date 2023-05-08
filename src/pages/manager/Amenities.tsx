@@ -11,6 +11,8 @@ import AmenityImage from "../../assets/Amenity.jpg";
 import { AmenityCard } from "../../components/manager/AmenityCard";
 import { Amenity } from "../../types/AmenityTypes";
 import { showErrorMessage } from "../../components/Toast";
+import { useNavigate } from "react-router-dom";
+import { checkManagerValidRoute } from "../../constants/AppConstants";
 
 const items = [
   { id: 1, name: "Item 1", imageUrl: AmenityImage },
@@ -25,6 +27,8 @@ export const ManageAmenities = () => {
   const [amenities, setAmenities] = useState<Amenity[]>([]);
   const [addAmenityModalOpen, setAddAmenityModalOpen] =
     useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const getApartmentForManager = async () => {
     const manager = getManager();
@@ -56,7 +60,12 @@ export const ManageAmenities = () => {
   };
 
   useEffect(() => {
-    getApartmentForManager();
+    if(checkManagerValidRoute()) {
+      getApartmentForManager();
+    }
+    else {
+      navigate("/unauthorized");
+    }
   }, []);
 
   useEffect(() => {

@@ -4,10 +4,13 @@ import { getResident } from "../../constants/LocalStorage";
 import { ResidentApiRoutes } from "../../routes/ApiRoutes";
 import { showErrorMessage } from "../../components/Toast";
 import { AddWorkOrderScreen } from "../../components/resident/AddWorkOrderScreen";
+import { checkResidentValidRoute } from "../../constants/AppConstants";
+import { useNavigate } from "react-router-dom";
 
 
 export const InActiveWorkOrders = () => {
   const [isApproved, setApproved] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const getActivityStatus = async () => {
     const resident = getResident();
@@ -26,7 +29,12 @@ export const InActiveWorkOrders = () => {
     setApproved(isActive);
   };
   useEffect(() => {
-    getActivityStatus();
+    if(checkResidentValidRoute()) {
+      getActivityStatus();
+    }
+    else {
+      navigate("/unauthorized");
+    }
   }, []);
 
   return <>{isApproved ? <AddWorkOrderScreen /> : <ResidentPending />}</>;

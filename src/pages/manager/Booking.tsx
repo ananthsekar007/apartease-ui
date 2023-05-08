@@ -16,9 +16,12 @@ import moment from "moment";
 import { getManager } from "../../constants/LocalStorage";
 import { AmenityBookingApiRoutes } from "../../routes/ApiRoutes";
 import { showErrorMessage } from "../../components/Toast";
+import { checkManagerValidRoute } from "../../constants/AppConstants";
+import { useNavigate } from "react-router-dom";
 
 export const ManagerBookings = () => {
   const [bookings, setBookings] = useState<AmenityBooking[]>([]);
+  const navigate = useNavigate();
 
   const getBookingsForManager = async () => {
     const manager = getManager();
@@ -35,7 +38,12 @@ export const ManagerBookings = () => {
   };
 
   useEffect(() => {
-    getBookingsForManager();
+    if(checkManagerValidRoute()) {
+      getBookingsForManager();
+    }
+    else {
+      navigate("/unauthorized");
+    }
   }, []);
 
   return (

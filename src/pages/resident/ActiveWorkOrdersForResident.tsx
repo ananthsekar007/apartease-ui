@@ -7,30 +7,36 @@ import { ResidentApiRoutes } from "../../routes/ApiRoutes";
 import { showErrorMessage } from "../../components/Toast";
 import { ResidentPending } from "../../components/resident/ResidentPending";
 import { ActiveWorkOrderScreen } from "../../components/resident/ActiveWorkOrderScreen";
+import { checkResidentValidRoute } from "../../constants/AppConstants";
+import { useNavigate } from "react-router-dom";
 
 export const ActiveWorkOrdersForResident = () => {
+  const [isApproved, setApproved] = useState<boolean>(false);
+  const navigate = useNavigate();
 
-    const [isApproved, setApproved] = useState<boolean>(false);
+  const getActivityStatus = async () => {
+    const resident = getResident();
 
-    const getActivityStatus = async () => {
-      const resident = getResident();
-  
-      const response = await fetch(
-        `${ResidentApiRoutes.GetResidentActivityStatus}/${resident?.residentId}`
-      );
-  
-      if (!response.ok) {
-        const error = await response.text();
-        showErrorMessage(error);
-        return;
-      }
-      const isActive = await response.json();
-  
-      setApproved(isActive);
-    };
-    useEffect(() => {
+    const response = await fetch(
+      `${ResidentApiRoutes.GetResidentActivityStatus}/${resident?.residentId}`
+    );
+
+    if (!response.ok) {
+      const error = await response.text();
+      showErrorMessage(error);
+      return;
+    }
+    const isActive = await response.json();
+
+    setApproved(isActive);
+  };
+  useEffect(() => {
+    if (checkResidentValidRoute()) {
       getActivityStatus();
-    }, []);
-  
-    return <>{isApproved ? <ActiveWorkOrderScreen /> : <ResidentPending />}</>;
-}
+    } else {
+      navigate("/unauthorized");
+    }
+  }, []);
+
+  return <>{isApproved ? <ActiveWorkOrderScreen /> : <ResidentPending />}</>;
+};

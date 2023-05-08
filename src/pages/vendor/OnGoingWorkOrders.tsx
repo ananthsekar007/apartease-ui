@@ -17,8 +17,9 @@ import { getVendor } from "../../constants/LocalStorage";
 import { showErrorMessage } from "../../components/Toast";
 import { WorkOrderApiRoutes } from "../../routes/ApiRoutes";
 import { Resident } from "../../types/ResidentTypes";
-import { StatusColours } from "../../constants/AppConstants";
+import { StatusColours, checkVendorValidRoute } from "../../constants/AppConstants";
 import { UpdateStatusModal } from "../../components/vendor/modals/UpdateStatusModal";
+import { useNavigate } from "react-router-dom";
 
 const getAddress = (resident: Resident | undefined): string => {
   if (!resident) return "";
@@ -32,6 +33,7 @@ export const OnGoingWorkOrders = () => {
   const [updateStatusModalOpen, setUpdateStatusModalOpen] =
     useState<boolean>(false);
   const [selectedWorkOrder, setSelectedWorkOrder] = useState<WorkOrder>();
+  const navigate = useNavigate();
 
   const getOnGoingWorkOrders = async () => {
     const vendor = getVendor();
@@ -50,7 +52,13 @@ export const OnGoingWorkOrders = () => {
   };
 
   useEffect(() => {
-    getOnGoingWorkOrders();
+    if(checkVendorValidRoute()) {
+
+        getOnGoingWorkOrders();
+    }
+    else {
+        navigate("/unauthorized");
+    }
   }, []);
 
   return (

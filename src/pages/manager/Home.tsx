@@ -9,10 +9,13 @@ import { Apartment } from "../../types/ApartmentTypes";
 import ApartmentCard from "../../components/manager/ApartmentCard";
 import { ResidentTableContainer } from "../../components/manager/ResidentTableContainer";
 import { showErrorMessage } from "../../components/Toast";
+import { checkManagerValidRoute } from "../../constants/AppConstants";
+import { useNavigate } from "react-router-dom";
 
 export const ManagerHome = () => {
   const [addApartmentOpen, setAddApartmentOpen] = useState<boolean>(false);
   const [apartment, setApartment] = useState<Apartment>();
+  const navigate = useNavigate();
 
   const getApartmentForManager = async () => {
     const manager = getManager();
@@ -35,7 +38,15 @@ export const ManagerHome = () => {
   };
 
   useEffect(() => {
-    getApartmentForManager();
+
+    if(checkManagerValidRoute()) {
+
+      getApartmentForManager();
+    }
+    else {
+      navigate("/unauthorized");
+    }
+
   }, []);
 
 

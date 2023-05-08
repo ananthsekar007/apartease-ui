@@ -5,10 +5,12 @@ import { ResidentApiRoutes } from "../../routes/ApiRoutes";
 import { showErrorMessage } from "../../components/Toast";
 import { ResidentAmenities } from "../../components/resident/ResidentAmenities";
 import { ResidentBookingScreen } from "../../components/resident/ResidentBookings";
-
+import { checkResidentValidRoute } from "../../constants/AppConstants";
+import { useNavigate } from "react-router-dom";
 
 export const ResidentBookings = () => {
   const [isApproved, setApproved] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const getActivityStatus = async () => {
     const resident = getResident();
@@ -27,7 +29,11 @@ export const ResidentBookings = () => {
     setApproved(isActive);
   };
   useEffect(() => {
-    getActivityStatus();
+    if (checkResidentValidRoute()) {
+      getActivityStatus();
+    } else {
+      navigate("/unauthorized");
+    }
   }, []);
 
   return <>{isApproved ? <ResidentBookingScreen /> : <ResidentPending />}</>;

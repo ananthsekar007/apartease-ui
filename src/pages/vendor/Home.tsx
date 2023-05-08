@@ -18,10 +18,12 @@ import { WorkOrderApiRoutes } from "../../routes/ApiRoutes";
 import { showErrorMessage } from "../../components/Toast";
 import CheckCircleOutlineIcon from "@mui/icons-material/Check";
 import CancelOutlinedIcon from "@mui/icons-material/Cancel";
-import { ResidentStatus, VendorStatus } from "../../constants/AppConstants";
+import { ResidentStatus, VendorStatus, checkVendorValidRoute } from "../../constants/AppConstants";
+import { useNavigate } from "react-router-dom";
 
 export const VendorHome = () => {
   const [inActiveWorkOrders, setInActiveWorkOrders] = useState<WorkOrder[]>([]);
+  const navigate = useNavigate();
 
   const getInActiveWorkOrders = async () => {
     const vendor = getVendor();
@@ -79,7 +81,12 @@ export const VendorHome = () => {
   };
 
   useEffect(() => {
-    getInActiveWorkOrders();
+    if(checkVendorValidRoute()) {
+      getInActiveWorkOrders();
+    }
+    else {
+      navigate("/unauthorized");
+    }
   }, []);
 
   return (
