@@ -7,6 +7,7 @@ import { setManager, setManagerAuthToken } from "../../constants/LocalStorage";
 import { useNavigate } from "react-router-dom";
 import { ManagerRoutes } from "../../routes/ManagerRoutes";
 import { showErrorMessage } from "../Toast";
+import { isValidEmail } from "../../constants/AppConstants";
 
 export const ManagerSignIn = () => {
 
@@ -18,7 +19,24 @@ export const ManagerSignIn = () => {
     e.preventDefault();
 
     const formEntries = new FormData(e.target).entries();
-    const signInInput = Object.fromEntries(formEntries);
+    const signInInput: any = Object.fromEntries(formEntries);
+
+    Object.keys(signInInput).forEach((input) => {
+      if(signInInput[input] == "" || signInInput[input] == undefined) {
+        showErrorMessage("Please fill all the fields!");
+        return;
+      }
+    });
+
+    if(!isValidEmail(signInInput.email)) {
+      showErrorMessage("Check the email and try again!");
+      return;
+    }
+
+    if(signInInput.password == 0) {
+      showErrorMessage("Check the password and try again!");
+      return;
+    }
 
     setLoading(true);
 

@@ -33,7 +33,14 @@ export const AddAmenityModal = (props: AddAmenityModalProps) => {
     e.preventDefault();
 
     const formEntries = new FormData(e.target).entries();
-    const addAmenityInput = Object.fromEntries(formEntries);
+    const addAmenityInput: any = Object.fromEntries(formEntries);
+
+    Object.keys(addAmenityInput).forEach((input) => {
+      if(addAmenityInput[input] == "" || addAmenityInput[input] == undefined) {
+        showErrorMessage("Please fill all the fields!");
+        return;
+      }
+    });
 
     setLoading(true);
 

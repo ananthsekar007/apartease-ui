@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { ResidentRoutes } from "../../routes/ResidentRoutes";
 import { VendorRoutes } from "../../routes/VendorRoutes";
 import { showErrorMessage } from "../Toast";
+import { isValidEmail } from "../../constants/AppConstants";
 
 export const VendorLogin = () => {
 
@@ -19,7 +20,24 @@ export const VendorLogin = () => {
     e.preventDefault();
 
     const formEntries = new FormData(e.target).entries();
-    const loginInput = Object.fromEntries(formEntries);
+    const loginInput: any = Object.fromEntries(formEntries);
+
+    Object.keys(loginInput).forEach((input) => {
+      if(loginInput[input] == "" || loginInput[input] == undefined) {
+        showErrorMessage("Please fill all the fields!");
+        return;
+      }
+    });
+
+    if(!isValidEmail(loginInput.email)) {
+      showErrorMessage("Check the email and try again!");
+      return;
+    }
+
+    if(loginInput.password == 0) {
+      showErrorMessage("Check the password and try again!");
+      return;
+    }
 
     setLoading(true);
 

@@ -23,6 +23,7 @@ import { setVendor, setVendorAuthToken } from "../../constants/LocalStorage";
 import { useNavigate } from "react-router-dom";
 import { VendorRoutes } from "../../routes/VendorRoutes";
 import { showErrorMessage } from "../Toast";
+import { isValidEmail } from "../../constants/AppConstants";
 
 const styles = {
   stepper: {
@@ -150,7 +151,25 @@ const AddVendor = (props: AddVendorProps) => {
     e.preventDefault();
 
     const formEntries = new FormData(e.target).entries();
-    const vendorInput = Object.fromEntries(formEntries);
+    const vendorInput: any = Object.fromEntries(formEntries);
+
+    Object.keys(vendorInput).forEach((input) => {
+      if(vendorInput[input] == "" || vendorInput[input] == undefined) {
+        showErrorMessage("Please fill all the fields!");
+        return;
+      }
+    });
+
+    if(!isValidEmail(vendorInput.email)) {
+      showErrorMessage("Check the email and try again!");
+      return;
+    }
+
+    if(vendorInput.password == 0) {
+      showErrorMessage("Check the password and try again!");
+      return;
+    }
+
     setLoading(true);
 
     const response = await fetch(VendorApiRoutes.SignIn, {

@@ -7,6 +7,7 @@ import { setResident, setResidentAuthToken } from "../../constants/LocalStorage"
 import { useNavigate } from "react-router-dom";
 import { ResidentRoutes } from "../../routes/ResidentRoutes";
 import { showErrorMessage } from "../Toast";
+import { isValidEmail } from "../../constants/AppConstants";
 
 export const ResidentLogin = () => {
 
@@ -18,7 +19,17 @@ export const ResidentLogin = () => {
     e.preventDefault();
 
     const formEntries = new FormData(e.target).entries();
-    const loginInput = Object.fromEntries(formEntries);
+    const loginInput: any = Object.fromEntries(formEntries);
+
+    if(!isValidEmail(loginInput.email)) {
+      showErrorMessage("Check the email and try again!");
+      return;
+    }
+
+    if(loginInput.password == 0) {
+      showErrorMessage("Check the password and try again!");
+      return;
+    }
 
     setLoading(true);
 

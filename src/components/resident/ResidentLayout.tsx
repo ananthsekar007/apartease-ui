@@ -162,7 +162,6 @@ export const ResidentLayout = ({ children }: ResidentLayoutProps) => {
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
             >
-              {/* <MenuItem onClick={handleMenuClose}>Profile</MenuItem> */}
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </div>

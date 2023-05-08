@@ -15,6 +15,7 @@ import { ManagerRoutes } from "../../routes/ManagerRoutes";
 import { Apartment } from "../../types/ApartmentTypes";
 import { ResidentRoutes } from "../../routes/ResidentRoutes";
 import { showErrorMessage } from "../Toast";
+import { isValidEmail } from "../../constants/AppConstants";
 
 export const ResidentSignIn = () => {
   const [loading, setLoading] = useState<boolean>();
@@ -45,7 +46,24 @@ export const ResidentSignIn = () => {
 
 
     const formEntries = new FormData(e.target).entries();
-    const signInInput = Object.fromEntries(formEntries);
+    const signInInput: any = Object.fromEntries(formEntries);
+
+    Object.keys(signInInput).forEach((input) => {
+      if(signInInput[input] == "" || signInInput[input] == undefined) {
+        showErrorMessage("Please fill all the fields!");
+        return;
+      }
+    });
+
+    if(!isValidEmail(signInInput.email)) {
+      showErrorMessage("Check the email and try again!");
+      return;
+    }
+
+    if(signInInput.password == 0) {
+      showErrorMessage("Check the password and try again!");
+      return;
+    }
 
     setLoading(true);
 

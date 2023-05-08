@@ -25,7 +25,7 @@ export const UpdateStatusModal = (props: UpdateStatusModalProps) => {
     e.preventDefault();
 
     const formEntries = new FormData(e.target).entries();
-    const updateStatusInput = Object.fromEntries(formEntries);
+    const updateStatusInput: any = Object.fromEntries(formEntries);
 
     const body = {
       workOrderId: workOrder?.workOrderId,
@@ -38,6 +38,13 @@ export const UpdateStatusModal = (props: UpdateStatusModalProps) => {
       acceptedByVendor: workOrder?.acceptedByVendor,
       cancelledByVendor: workOrder?.cancelledByVendor,
     };
+
+    Object.keys(updateStatusInput).forEach((input) => {
+        if(updateStatusInput[input] == "" || updateStatusInput[input] == undefined) {
+          showErrorMessage("Please select all the fields!");
+          return;
+        }
+    });
 
     setLoading(true);
 

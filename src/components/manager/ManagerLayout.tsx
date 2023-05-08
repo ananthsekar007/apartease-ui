@@ -156,7 +156,6 @@ export const ManagerLayout = ({ children }: ManagerLayoutProps) => {
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
             >
-              {/* <MenuItem onClick={handleMenuClose}>Profile</MenuItem> */}
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </div>

@@ -8,6 +8,7 @@ import { useState } from "react";
 import { AmenityBookingApiRoutes } from "../../../routes/ApiRoutes";
 import { getResident, getResidentAuthToken } from "../../../constants/LocalStorage";
 import { showErrorMessage, showSuccessMessage } from "../../Toast";
+import { isValidEmail } from "../../../constants/AppConstants";
 
 interface BookAmenityProps {
   open: boolean;
@@ -22,9 +23,21 @@ export const BookAmenityModal = (props: BookAmenityProps) => {
     e.preventDefault();
 
     const formEntries = new FormData(e.target).entries();
-    const bookAmenityInput = Object.fromEntries(formEntries);
+    const bookAmenityInput: any = Object.fromEntries(formEntries);
     const resident = getResident();
     const authToken = getResidentAuthToken();
+
+    Object.keys(bookAmenityInput).forEach((input) => {
+      if(bookAmenityInput[input] == "" || bookAmenityInput[input] == undefined) {
+        showErrorMessage("Please fill all the fields!");
+        return;
+      }
+    });
+
+    if(!isValidEmail(bookAmenityInput.guestEmail)) {
+      showErrorMessage("Check the email and try again!");
+      return;
+    }
 
     setLoading(true);
 

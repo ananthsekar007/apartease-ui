@@ -7,6 +7,7 @@ import { useState } from "react";
 import { getResident, getResidentAuthToken } from "../../../constants/LocalStorage";
 import { AmenityBookingApiRoutes } from "../../../routes/ApiRoutes";
 import { showErrorMessage } from "../../Toast";
+import { isValidEmail } from "../../../constants/AppConstants";
 
 interface EditBookingProps {
   bookingDetails: AmenityBooking | undefined;
@@ -22,7 +23,20 @@ export const EditBookingModal = (props: EditBookingProps) => {
     e.preventDefault();
 
     const formEntries = new FormData(e.target).entries();
-    const bookAmenityInput = Object.fromEntries(formEntries);
+    const bookAmenityInput: any = Object.fromEntries(formEntries);
+
+    Object.keys(bookAmenityInput).forEach((input) => {
+      if(bookAmenityInput[input] == "" || bookAmenityInput[input] == undefined) {
+        showErrorMessage("Please fill all the fields!");
+        return;
+      }
+    });
+
+    if(!isValidEmail(bookAmenityInput.guestEmail)) {
+      showErrorMessage("Check the email and try again!");
+      return;
+    }
+
     const resident = getResident();
     const { bookingDetails } = props;
 
