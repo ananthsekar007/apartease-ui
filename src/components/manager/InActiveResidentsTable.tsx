@@ -67,7 +67,7 @@ export const InActiveResidentsTable = ({
     
       };
   return (
-    <Card style={styles.table} elevation={6}>
+    <Card style={styles.table} elevation={4}>
       <CardHeader
         title="Active Residents"
         style={{

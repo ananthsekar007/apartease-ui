@@ -23,7 +23,7 @@ export const AmenityCard = ({ amenity, onEditSuccess }: AmenityCardProps) => {
 
   return (
     <>
-      <Card elevation={6} style={{ borderRadius: 5 }}>
+      <Card elevation={4} style={{ borderRadius: 5 }}>
         <CardMedia style={cardMediaStyles.media} image={AmenityImage}>
           <div style={cardMediaStyles.fadeOverlay} />
         </CardMedia>

@@ -26,7 +26,7 @@ export const BookAmenityCard = ({ amenity }: BookAmenityProps) => {
 
   return (
     <>
-      <Card elevation={6}>
+      <Card elevation={4}>
         <CardMedia style={cardMediaStyles.media} image={AmenityImage}>
           <div style={cardMediaStyles.fadeOverlay} />
         </CardMedia>

@@ -50,7 +50,7 @@ export const setVendor = (vendor : Vendor) => {
     localStorage.setItem(AppEazeVendor, JSON.stringify(vendor));
 }
 
-export const getVendor = () : Resident | null => {
+export const getVendor = () : Vendor | null => {
     let user = localStorage.getItem(AppEazeVendor);
     if(!user) return null; 
     return JSON.parse(user);

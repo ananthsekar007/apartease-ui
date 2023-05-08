@@ -16,7 +16,8 @@ export const ResidentApiRoutes = {
 
 export const VendorApiRoutes = {
     SignIn: `${BASE_API_URL}/auth/vendor/signin`,
-    Login:  `${BASE_API_URL}/auth/vendor/login`
+    Login:  `${BASE_API_URL}/auth/vendor/login`,
+    GetVendors: `${BASE_API_URL}/vendor/get`
 }
 
 export const ApartmentApiRoutes = {
@@ -45,5 +46,15 @@ export const AmenityApiRoutes = {
 export const AmenityBookingApiRoutes = {
     BookAmenity: `${BASE_API_URL}/amenitybooking/add`,
     EditAmenityBooking: `${BASE_API_URL}/amenitybooking/edit`,
-    GetAmenitiesForResident: `${BASE_API_URL}/amenitybooking/get`
+    GetAmenitiesForResident: `${BASE_API_URL}/amenitybooking/get-for-resident`,
+    GetAmenitiesForManager: `${BASE_API_URL}/amenitybooking/get-for-manager`
+}
+
+export const WorkOrderApiRoutes = {
+    AddWorkOrder: `${BASE_API_URL}/workorder/add`,
+    UpdateWorkOrder: `${BASE_API_URL}/workorder/edit`,
+    GetResidentInActiveWorkOrders: `${BASE_API_URL}/workorder/resident/get/in-active`,
+    GetResidentActiveWorkOrders: `${BASE_API_URL}/workorder/resident/get/active`,
+    GetVendorInActiveWorkOrders: `${BASE_API_URL}/workorder/vendor/get/in-active`,
+    GetVendorActiveWorkOrders: `${BASE_API_URL}/workorder/vendor/get/active`,
 }

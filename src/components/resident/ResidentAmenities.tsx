@@ -23,7 +23,6 @@ export const ResidentAmenities = () => {
 
     const amenities = await response.json();
 
-    console.log({ amenities });
     setAmenities(amenities);
   };
 

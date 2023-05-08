@@ -43,7 +43,7 @@ const ApartmentCard = ({ apartment: {name, city, state, zip, street, ...rest} }:
 
   return (
     <Card
-      elevation={6}
+      elevation={4}
       style={{
         display: "flex",
         flexDirection: "column",

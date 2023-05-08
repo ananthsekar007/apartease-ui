@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 import { ManagerRoutes } from "../../routes/ManagerRoutes";
 import HomeIcon from '@mui/icons-material/Home';
 import PoolIcon from '@mui/icons-material/Pool';
+import BookIcon from '@mui/icons-material/Book';
 
 interface ManagerLayoutProps {
   children: any;
@@ -43,6 +44,11 @@ const drawerItems: DrawerItemProps[] = [
       text: "Amenities",
       navigateRoute: ManagerRoutes.Amenities,
       icon: PoolIcon
+    },
+    {
+      text: "Bookings",
+      navigateRoute: ManagerRoutes.Bookings,
+      icon: BookIcon
     }
 ]
 

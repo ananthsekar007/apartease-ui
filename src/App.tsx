@@ -14,6 +14,9 @@ import { VendorLanding } from './pages/VendorLanding';
 import { VendorHome } from './pages/vendor/Home';
 import { ManageAmenities } from './pages/manager/Amenities';
 import { ResidentBookings } from './pages/resident/Bookings';
+import { ManagerBookings } from './pages/manager/Booking';
+import { InActiveWorkOrders } from './pages/resident/InActiveWorkOrders';
+import { OnGoingWorkOrders } from './pages/vendor/OnGoingWorkOrders';
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +54,18 @@ export const router = createBrowserRouter([
   {
     path: ManagerRoutes.Amenities,
     element: <ManageAmenities />
+  },
+  {
+    path: ManagerRoutes.Bookings,
+    element: <ManagerBookings />
+  },
+  {
+    path: ResidentRoutes.AddWorkOrders,
+    element: <InActiveWorkOrders />
+  },
+  {
+    path: VendorRoutes.WorkOrders,
+    element: <OnGoingWorkOrders />
   }
 ]);
 

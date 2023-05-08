@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import WorkIcon from '@mui/icons-material/Work';
 import {
   Divider,
   Drawer,
@@ -20,12 +19,12 @@ import {
 } from "@mui/material";
 import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
-import BookIcon from '@mui/icons-material/Book';
-import PoolIcon from '@mui/icons-material/Pool';
-import { ResidentRoutes } from "../../routes/ResidentRoutes";
+import HomeIcon from '@mui/icons-material/Home';
+import { VendorRoutes } from "../../routes/VendorRoutes";
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
 
-interface ResidentLayoutProps {
+
+interface VendorLayoutProps {
   children: any;
 }
 
@@ -37,28 +36,18 @@ interface DrawerItemProps {
 
 const drawerItems: DrawerItemProps[] = [
     {
-      text: "Amenities",
-      navigateRoute: ResidentRoutes.Amenities,
-      icon: PoolIcon
+      text: "Home",
+      navigateRoute: VendorRoutes.Home,
+      icon: HomeIcon
     },
     {
-      text: "My Bookings",
-      navigateRoute: ResidentRoutes.Bookings,
-      icon: BookIcon
-    },
-    {
-      text: "Add Work Order",
-      navigateRoute: ResidentRoutes.AddWorkOrders,
+      text: "Work Orders",
+      navigateRoute: VendorRoutes.WorkOrders,
       icon: WorkHistoryIcon
-    },
-    {
-      text: "View Work Orders",
-      navigateRoute: ResidentRoutes.ListWorkOrders,
-      icon: WorkIcon
     }
 ]
 
-export const ResidentLayout = ({ children }: ResidentLayoutProps) => {
+export const VendorLayout = ({ children }: VendorLayoutProps) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 

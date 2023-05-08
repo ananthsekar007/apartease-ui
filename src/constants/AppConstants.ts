@@ -26,4 +26,22 @@ export const AuthCardDetails: AuthCardProps[] = [
     },
 ]
 
+export const VendorStatus: Record<string, string> = {
+    OnGoing : "ON-GOING",
+    Done: "DONE"
+}
+
+export const ResidentStatus: Record<string, string> = {
+    OnGoing: "ON-GOING",
+    Done: "DONE",
+    Revisit: "NEEDS REVISIT"
+}
+
+export const StatusColours: Record<string, string> = {
+    "ON-GOING": "red",
+    "DONE": "green",
+    "NEEDS REVISIT": "yellow"
+}
+
+
 export const BASE_API_URL = 'http://localhost:5289/api';
