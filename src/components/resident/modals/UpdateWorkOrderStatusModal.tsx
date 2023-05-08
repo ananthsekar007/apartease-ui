@@ -1,39 +1,46 @@
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import { WorkOrder } from "../../../types/WorkOrderTypes";
 import { UIModel } from "../../UIComponents/UIModal";
-import { VendorStatus } from "../../../constants/AppConstants";
-import "../../auth.css";
 import { UIButton } from "../../UIComponents/UIButton";
 import { useState } from "react";
 import { WorkOrderApiRoutes } from "../../../routes/ApiRoutes";
 import { showErrorMessage } from "../../Toast";
+import { ResidentStatus } from "../../../constants/AppConstants";
+import "../../auth.css";
 
-interface UpdateStatusModalProps {
+interface UpdateWorkOrderStatusModalProps {
   open: boolean;
   onClose: () => void;
   onSuccess: () => void;
   workOrder: WorkOrder | undefined;
 }
 
-export const UpdateStatusModal = (props: UpdateStatusModalProps) => {
+export const UpdateWorkOrderStatusModal = (
+  props: UpdateWorkOrderStatusModalProps
+) => {
   const [loading, setLoading] = useState<boolean>(false);
-
   const onEdit = async (e: any) => {
     const { workOrder } = props;
 
     e.preventDefault();
 
     const formEntries = new FormData(e.target).entries();
-    const updateStatusInput = Object.fromEntries(formEntries);
+    const updateWorkOrderInput = Object.fromEntries(formEntries);
 
     const body = {
       workOrderId: workOrder?.workOrderId,
-      workOrderTitle: workOrder?.workOrderTitle,
-      workOrderDescription: workOrder?.workOrderDescription,
+      workOrderTitle: updateWorkOrderInput.workOrderTitle,
+      workOrderDescription: updateWorkOrderInput.workOrderDescription,
       vendorId: workOrder?.vendorId,
       residentId: workOrder?.residentId,
-      vendorStatus: updateStatusInput.vendorStatus,
-      residentStatus: workOrder?.residentStatus,
+      vendorStatus: workOrder?.vendorStatus,
+      residentStatus: updateWorkOrderInput.residentStatus,
       acceptedByVendor: workOrder?.acceptedByVendor,
       cancelledByVendor: workOrder?.cancelledByVendor,
     };
@@ -64,32 +71,44 @@ export const UpdateStatusModal = (props: UpdateStatusModalProps) => {
       <UIModel
         isOpen={props.open}
         onClose={props.onClose}
-        title="Update Work Order Status"
+        title="Update Work Order"
         hideCancel
       >
-        <form className="auth-form" onSubmit={onEdit}>
-          <FormControl
-            variant="outlined"
-            fullWidth
+        <form className="auth-form" onSubmit={onEdit} >
+          <TextField
+            label="Title"
+            name="workOrderTitle"
+            className="form-element"
             style={{
               marginTop: 20,
             }}
-          >
+            fullWidth
+            defaultValue={props.workOrder?.workOrderTitle}
+          />
+          <TextField
+            label="description"
+            name="workOrderDescription"
+            className="form-element"
+            fullWidth
+            multiline
+            defaultValue={props.workOrder?.workOrderDescription}
+          />
+          <FormControl variant="outlined" fullWidth>
             <InputLabel id="test-select-label">Select Status</InputLabel>
             <Select
-              name="vendorStatus"
+              name="residentStatus"
               fullWidth
               variant="outlined"
               labelId="test-select-label"
               label="Select Status"
               className="form-element"
-              defaultValue={props.workOrder?.vendorStatus}
+              defaultValue={props.workOrder?.residentStatus}
             >
               <MenuItem value="" disabled>
                 Select an option
               </MenuItem>
-              {Object.keys(VendorStatus).map((status: string) => (
-                <MenuItem value={VendorStatus[status]}>{status}</MenuItem>
+              {Object.keys(ResidentStatus).map((status: string) => (
+                <MenuItem value={ResidentStatus[status]}>{status}</MenuItem>
               ))}
             </Select>
           </FormControl>

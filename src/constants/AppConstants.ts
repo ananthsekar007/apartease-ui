@@ -40,7 +40,7 @@ export const ResidentStatus: Record<string, string> = {
 export const StatusColours: Record<string, string> = {
     "ON-GOING": "red",
     "DONE": "green",
-    "NEEDS REVISIT": "yellow"
+    "NEEDS REVISIT": "darkgoldenrod"
 }
 
 

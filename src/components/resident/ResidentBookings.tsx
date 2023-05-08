@@ -10,6 +10,7 @@ import {
   TableRow,
   Paper,
   Button,
+  Typography,
 } from "@mui/material";
 import { AmenityBooking } from "../../types/AmenityTypes";
 import { getResident } from "../../constants/LocalStorage";
@@ -51,6 +52,16 @@ export const ResidentBookingScreen = () => {
       <ResidentLayout>
         <Container>
           <TableContainer component={Paper} elevation={4}>
+          <Typography
+                  variant="h6"
+                  textAlign={"center"}
+                  style={{
+                    marginTop: 20,
+                    marginBottom: 20,
+                  }}
+                >
+                  Bookings
+                </Typography>
             <Table>
               <TableHead>
                 <TableRow>

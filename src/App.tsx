@@ -17,6 +17,7 @@ import { ResidentBookings } from './pages/resident/Bookings';
 import { ManagerBookings } from './pages/manager/Booking';
 import { InActiveWorkOrders } from './pages/resident/InActiveWorkOrders';
 import { OnGoingWorkOrders } from './pages/vendor/OnGoingWorkOrders';
+import { ActiveWorkOrdersForResident } from './pages/resident/ActiveWorkOrdersForResident';
 
 export const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ export const router = createBrowserRouter([
   {
     path: VendorRoutes.WorkOrders,
     element: <OnGoingWorkOrders />
+  },
+  {
+    path: ResidentRoutes.ListWorkOrders,
+    element: <ActiveWorkOrdersForResident />
   }
 ]);
 

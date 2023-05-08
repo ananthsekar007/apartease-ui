@@ -8,6 +8,7 @@ import {
   TableRow,
   Paper,
   Container,
+  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { AmenityBooking } from "../../types/AmenityTypes";
@@ -42,6 +43,16 @@ export const ManagerBookings = () => {
       <ManagerLayout>
         <Container>
           <TableContainer component={Paper} elevation={4}>
+          <Typography
+                  variant="h6"
+                  textAlign={"center"}
+                  style={{
+                    marginTop: 20,
+                    marginBottom: 20,
+                  }}
+                >
+                  Bookings
+                </Typography>
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>

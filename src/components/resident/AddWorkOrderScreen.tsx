@@ -84,6 +84,16 @@ export const AddWorkOrderScreen = () => {
               <TableContainer component={Paper} style={{
                 marginTop: 20
               }} elevation={4}>
+                <Typography
+                  variant="h6"
+                  textAlign={"center"}
+                  style={{
+                    marginTop: 20,
+                    marginBottom: 20,
+                  }}
+                >
+                  Pending Work Orders
+                </Typography>
                 <Table aria-label="my table">
                   <TableHead>
                     <TableRow>
