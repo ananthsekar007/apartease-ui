@@ -23,6 +23,7 @@ import {
 } from "../../constants/AppConstants";
 import { UpdateStatusModal } from "../../components/vendor/modals/UpdateStatusModal";
 import { useNavigate } from "react-router-dom";
+import Image from "../../assets/NoData.jpg";
 
 const getAddress = (resident: Resident | undefined): string => {
   if (!resident) return "";
@@ -75,16 +76,19 @@ export const OnGoingWorkOrders = () => {
         <Container>
           {onGoingWorkOrders && onGoingWorkOrders.length == 0 ? (
             <>
-              <div
+              <Container
                 style={{
                   display: "flex",
-                  justifyContent: "center",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginTop: 40,
                 }}
               >
-                <Typography variant="h6">
+                <Typography variant="h6" fontStyle={"italic"}>
                   No available work orders for now!
                 </Typography>
-              </div>
+                <img src={Image} height={400} width={500} />
+              </Container>
             </>
           ) : (
             <>

@@ -13,14 +13,7 @@ import { Amenity } from "../../types/AmenityTypes";
 import { showErrorMessage } from "../../components/Toast";
 import { useNavigate } from "react-router-dom";
 import { checkManagerValidRoute } from "../../constants/AppConstants";
-
-const items = [
-  { id: 1, name: "Item 1", imageUrl: AmenityImage },
-  { id: 2, name: "Item 2", imageUrl: AmenityImage },
-  { id: 3, name: "Item 3", imageUrl: AmenityImage },
-  { id: 4, name: "Item 4", imageUrl: AmenityImage },
-  { id: 5, name: "Item 5", imageUrl: AmenityImage },
-];
+import Image from "../../assets/NoData.jpg";
 
 export const ManageAmenities = () => {
   const [apartment, setApartment] = useState<Apartment>();
@@ -37,8 +30,8 @@ export const ManageAmenities = () => {
       `${ApartmentApiRoutes.GetApartmentForManager}/${manager?.managerId}`,
       {
         headers: {
-          "Authorization": `Bearer ${authToken}`
-        }
+          Authorization: `Bearer ${authToken}`,
+        },
       }
     );
 
@@ -53,14 +46,14 @@ export const ManageAmenities = () => {
   };
 
   const getAmenitiesForApartment = async (apartmentId: number) => {
-
     const authToken = getManagerAuthToken();
 
     const response = await fetch(
-      `${AmenityApiRoutes.GetAmenityForApartment}/${apartmentId}`, {
+      `${AmenityApiRoutes.GetAmenityForApartment}/${apartmentId}`,
+      {
         headers: {
-          "Authorization": `Bearer ${authToken}`
-        }
+          Authorization: `Bearer ${authToken}`,
+        },
       }
     );
     if (!response.ok) {
@@ -73,10 +66,9 @@ export const ManageAmenities = () => {
   };
 
   useEffect(() => {
-    if(checkManagerValidRoute()) {
+    if (checkManagerValidRoute()) {
       getApartmentForManager();
-    }
-    else {
+    } else {
       navigate("/unauthorized");
     }
   }, []);
@@ -93,16 +85,19 @@ export const ManageAmenities = () => {
         <Container>
           {!apartment ? (
             <>
-              <div
+              <Container
                 style={{
                   display: "flex",
-                  justifyContent: "center",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginTop: 40,
                 }}
               >
-                <Typography variant="h6">
+                <Typography variant="h6" fontStyle={"italic"}>
                   Add an Apartment to get started!
                 </Typography>
-              </div>
+                <img src={Image} height={400} width={500} />
+              </Container>
             </>
           ) : (
             <>

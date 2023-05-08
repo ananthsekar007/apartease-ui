@@ -18,6 +18,7 @@ import { WorkOrderApiRoutes } from "../../routes/ApiRoutes";
 import { showErrorMessage } from "../Toast";
 import { StatusColours } from "../../constants/AppConstants";
 import { UpdateWorkOrderStatusModal } from "./modals/UpdateWorkOrderStatusModal";
+import Image from "../../assets/NoData.jpg";
 
 export const ActiveWorkOrderScreen = () => {
   const [activeWorkOrders, setActiveWorkOrders] = useState<WorkOrder[]>([]);
@@ -56,16 +57,19 @@ export const ActiveWorkOrderScreen = () => {
         <Container>
           {activeWorkOrders && activeWorkOrders.length == 0 ? (
             <>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Typography variant="h6">
-                  No Active Work Orders for you!
-                </Typography>
-              </div>
+              <Container
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginTop: 40,
+          }}
+        >
+          <Typography variant="h6" fontStyle={"italic"}>
+            No Active work orders for you!
+          </Typography>
+          <img src={Image} height={400} width={500} />
+        </Container>
             </>
           ) : (
             <>

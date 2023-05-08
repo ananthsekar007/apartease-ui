@@ -18,6 +18,7 @@ import { AmenityBookingApiRoutes } from "../../routes/ApiRoutes";
 import { showErrorMessage } from "../../components/Toast";
 import { checkManagerValidRoute } from "../../constants/AppConstants";
 import { useNavigate } from "react-router-dom";
+import Image from "../../assets/NoData.jpg"
 
 export const ManagerBookings = () => {
   const [bookings, setBookings] = useState<AmenityBooking[]>([]);
@@ -30,8 +31,8 @@ export const ManagerBookings = () => {
       `${AmenityBookingApiRoutes.GetAmenitiesForManager}/${manager?.managerId}`,
       {
         headers: {
-          "Authorization": `Bearer ${authToken}`
-        }
+          Authorization: `Bearer ${authToken}`,
+        },
       }
     );
     if (!response.ok) {
@@ -44,10 +45,9 @@ export const ManagerBookings = () => {
   };
 
   useEffect(() => {
-    if(checkManagerValidRoute()) {
+    if (checkManagerValidRoute()) {
       getBookingsForManager();
-    }
-    else {
+    } else {
       navigate("/unauthorized");
     }
   }, []);
@@ -56,17 +56,36 @@ export const ManagerBookings = () => {
     <>
       <ManagerLayout>
         <Container>
-          <TableContainer component={Paper} elevation={4}>
-          <Typography
-                  variant="h6"
-                  textAlign={"center"}
-                  style={{
-                    marginTop: 20,
-                    marginBottom: 20,
-                  }}
-                >
-                  Bookings
+          {bookings && bookings.length == 0 ? (
+            <>
+              <Container
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginTop: 40,
+                }}
+              >
+                <Typography variant="h6" fontStyle={"italic"}>
+                  No bookings yet!
                 </Typography>
+                <img src={Image} height={400} width={500} />
+              </Container>
+            </>
+          ) : (
+            <></>
+          )}
+          <TableContainer component={Paper} elevation={4}>
+            <Typography
+              variant="h6"
+              textAlign={"center"}
+              style={{
+                marginTop: 20,
+                marginBottom: 20,
+              }}
+            >
+              Bookings
+            </Typography>
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>

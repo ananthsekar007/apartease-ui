@@ -18,8 +18,13 @@ import { WorkOrderApiRoutes } from "../../routes/ApiRoutes";
 import { showErrorMessage } from "../../components/Toast";
 import CheckCircleOutlineIcon from "@mui/icons-material/Check";
 import CancelOutlinedIcon from "@mui/icons-material/Cancel";
-import { ResidentStatus, VendorStatus, checkVendorValidRoute } from "../../constants/AppConstants";
+import {
+  ResidentStatus,
+  VendorStatus,
+  checkVendorValidRoute,
+} from "../../constants/AppConstants";
 import { useNavigate } from "react-router-dom";
+import Image from "../../assets/NoData.jpg";
 
 export const VendorHome = () => {
   const [inActiveWorkOrders, setInActiveWorkOrders] = useState<WorkOrder[]>([]);
@@ -34,8 +39,8 @@ export const VendorHome = () => {
       `${WorkOrderApiRoutes.GetVendorInActiveWorkOrders}/${vendor?.vendorId}`,
       {
         headers: {
-          "Authorization": `Bearer ${authToken}`
-        }
+          Authorization: `Bearer ${authToken}`,
+        },
       }
     );
 
@@ -64,8 +69,8 @@ export const VendorHome = () => {
       cancelledByVendor: isApprove ? false : true,
       residentId,
       vendorId,
-      vendorStatus: isApprove ? VendorStatus.OnGoing: "",
-      residentStatus: isApprove ? ResidentStatus.OnGoing: "",
+      vendorStatus: isApprove ? VendorStatus.OnGoing : "",
+      residentStatus: isApprove ? ResidentStatus.OnGoing : "",
       workOrderDescription,
       workOrderId,
       workOrderTitle,
@@ -77,7 +82,7 @@ export const VendorHome = () => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authToken}`
+        Authorization: `Bearer ${authToken}`,
       },
       body: JSON.stringify(body),
     });
@@ -92,10 +97,9 @@ export const VendorHome = () => {
   };
 
   useEffect(() => {
-    if(checkVendorValidRoute()) {
+    if (checkVendorValidRoute()) {
       getInActiveWorkOrders();
-    }
-    else {
+    } else {
       navigate("/unauthorized");
     }
   }, []);
@@ -106,17 +110,20 @@ export const VendorHome = () => {
         <Container>
           {inActiveWorkOrders.length == 0 ? (
             <>
-              <div
+              <Container
                 style={{
                   display: "flex",
-                  justifyContent: "center",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginTop: 40,
                 }}
               >
-                <Typography variant="h6">
+                <Typography variant="h6" fontStyle={"italic"}>
                   You'll have something to work on when the residents need your
                   help!
                 </Typography>
-              </div>
+                <img src={Image} height={400} width={500} />
+              </Container>
             </>
           ) : (
             <>
@@ -126,7 +133,7 @@ export const VendorHome = () => {
                   textAlign={"center"}
                   style={{
                     marginTop: 20,
-                    marginBottom: 20
+                    marginBottom: 20,
                   }}
                 >
                   Work Order Approval

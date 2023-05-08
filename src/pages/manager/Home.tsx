@@ -11,6 +11,7 @@ import { ResidentTableContainer } from "../../components/manager/ResidentTableCo
 import { showErrorMessage } from "../../components/Toast";
 import { checkManagerValidRoute } from "../../constants/AppConstants";
 import { useNavigate } from "react-router-dom";
+import Image from "../../assets/NoData.jpg";
 
 export const ManagerHome = () => {
   const [addApartmentOpen, setAddApartmentOpen] = useState<boolean>(false);
@@ -24,12 +25,12 @@ export const ManagerHome = () => {
       `${ApartmentApiRoutes.GetApartmentForManager}/${manager?.managerId}`,
       {
         headers: {
-          "Authorization": `Bearer ${authToken}`
-        }
+          Authorization: `Bearer ${authToken}`,
+        },
       }
     );
 
-    if(!response.ok) {
+    if (!response.ok) {
       const error = await response.text();
       showErrorMessage(error);
       return;
@@ -44,17 +45,12 @@ export const ManagerHome = () => {
   };
 
   useEffect(() => {
-
-    if(checkManagerValidRoute()) {
-
+    if (checkManagerValidRoute()) {
       getApartmentForManager();
-    }
-    else {
+    } else {
       navigate("/unauthorized");
     }
-
   }, []);
-
 
   return (
     <>
@@ -79,16 +75,19 @@ export const ManagerHome = () => {
                   <Typography>Add Apartment</Typography>
                 </Button>
               </div>
-              <div
+              <Container
                 style={{
                   display: "flex",
-                  justifyContent: "center",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginTop: 40,
                 }}
               >
-                <Typography variant="h6">
-                  Add an Apartment to get started!
+                <Typography variant="h6" fontStyle={"italic"}>
+                  Add an apartment to get started!
                 </Typography>
-              </div>
+                <img src={Image} height={400} width={500} />
+              </Container>
             </>
           )}
 

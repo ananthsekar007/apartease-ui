@@ -13,11 +13,15 @@ import {
   Typography,
 } from "@mui/material";
 import { AmenityBooking } from "../../types/AmenityTypes";
-import { getResident, getResidentAuthToken } from "../../constants/LocalStorage";
+import {
+  getResident,
+  getResidentAuthToken,
+} from "../../constants/LocalStorage";
 import { AmenityBookingApiRoutes } from "../../routes/ApiRoutes";
 import { showErrorMessage } from "../Toast";
 import moment from "moment";
 import { EditBookingModal } from "./modals/EditBookingModal";
+import Image from "../../assets/NoData.jpg";
 
 export const ResidentBookingScreen = () => {
   const [bookings, setBookings] = useState<AmenityBooking[]>([]);
@@ -38,8 +42,8 @@ export const ResidentBookingScreen = () => {
       `${AmenityBookingApiRoutes.GetAmenitiesForResident}/${resident?.residentId}`,
       {
         headers: {
-          "Authorization": `Bearer ${authToken}`
-        }
+          Authorization: `Bearer ${authToken}`,
+        },
       }
     );
     if (!response.ok) {
@@ -59,8 +63,26 @@ export const ResidentBookingScreen = () => {
     <>
       <ResidentLayout>
         <Container>
-          <TableContainer component={Paper} elevation={4}>
-          <Typography
+          {bookings && bookings.length == 0 ? (
+            <>
+              <Container
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginTop: 40,
+                }}
+              >
+                <Typography variant="h6" fontStyle={"italic"}>
+                  No Bookings available!
+                </Typography>
+                <img src={Image} height={400} width={500} />
+              </Container>
+            </>
+          ) : (
+            <>
+              <TableContainer component={Paper} elevation={4}>
+                <Typography
                   variant="h6"
                   textAlign={"center"}
                   style={{
@@ -70,45 +92,47 @@ export const ResidentBookingScreen = () => {
                 >
                   Bookings
                 </Typography>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Guest Name</TableCell>
-                  <TableCell>Guest Email</TableCell>
-                  <TableCell>Amenity Name</TableCell>
-                  <TableCell>From</TableCell>
-                  <TableCell>To</TableCell>
-                  <TableCell>Edit</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {bookings.map((booking) => (
-                  <TableRow key={booking.amenityBookingId}>
-                    <TableCell>{booking.guestName}</TableCell>
-                    <TableCell>{booking.guestEmail}</TableCell>
-                    <TableCell>{booking.amenity?.amenityName}</TableCell>
-                    <TableCell>
-                      {moment(booking.from).format("MMMM Do YYYY, h:mm A")}
-                    </TableCell>
-                    <TableCell>
-                      {moment(booking.to).format("MMMM Do YYYY, h:mm A")}
-                    </TableCell>
-                    <TableCell>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => {
-                          onEditClick(booking);
-                        }}
-                      >
-                        Edit
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Guest Name</TableCell>
+                      <TableCell>Guest Email</TableCell>
+                      <TableCell>Amenity Name</TableCell>
+                      <TableCell>From</TableCell>
+                      <TableCell>To</TableCell>
+                      <TableCell>Edit</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {bookings.map((booking) => (
+                      <TableRow key={booking.amenityBookingId}>
+                        <TableCell>{booking.guestName}</TableCell>
+                        <TableCell>{booking.guestEmail}</TableCell>
+                        <TableCell>{booking.amenity?.amenityName}</TableCell>
+                        <TableCell>
+                          {moment(booking.from).format("MMMM Do YYYY, h:mm A")}
+                        </TableCell>
+                        <TableCell>
+                          {moment(booking.to).format("MMMM Do YYYY, h:mm A")}
+                        </TableCell>
+                        <TableCell>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={() => {
+                              onEditClick(booking);
+                            }}
+                          >
+                            Edit
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </>
+          )}
         </Container>
       </ResidentLayout>
       <EditBookingModal
