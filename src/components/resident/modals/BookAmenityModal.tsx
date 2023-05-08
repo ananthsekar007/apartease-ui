@@ -6,7 +6,7 @@ import "../../auth.css";
 import { UIButton } from "../../UIComponents/UIButton";
 import { useState } from "react";
 import { AmenityBookingApiRoutes } from "../../../routes/ApiRoutes";
-import { getResident } from "../../../constants/LocalStorage";
+import { getResident, getResidentAuthToken } from "../../../constants/LocalStorage";
 import { showErrorMessage, showSuccessMessage } from "../../Toast";
 
 interface BookAmenityProps {
@@ -24,6 +24,7 @@ export const BookAmenityModal = (props: BookAmenityProps) => {
     const formEntries = new FormData(e.target).entries();
     const bookAmenityInput = Object.fromEntries(formEntries);
     const resident = getResident();
+    const authToken = getResidentAuthToken();
 
     setLoading(true);
 
@@ -31,6 +32,7 @@ export const BookAmenityModal = (props: BookAmenityProps) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${authToken}`
       },
       body: JSON.stringify({
         ...bookAmenityInput,

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Amenity } from "../../../types/AmenityTypes";
 import { AmenityApiRoutes } from "../../../routes/ApiRoutes";
 import { showErrorMessage } from "../../Toast";
+import { getManagerAuthToken } from "../../../constants/LocalStorage";
 
 interface ViewEditAmenityModalProps {
   open: boolean;
@@ -56,10 +57,13 @@ export const ViewEditAmenityModal = (props: ViewEditAmenityModalProps) => {
 
     setLoading(true);
 
+    const authToken = getManagerAuthToken();
+
     const response = await fetch(AmenityApiRoutes.UpdateAmenity, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${authToken}`
       },
       body: JSON.stringify({
         ...editAmenityInput,

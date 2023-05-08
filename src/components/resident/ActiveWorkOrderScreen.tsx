@@ -13,7 +13,7 @@ import {
 import { ResidentLayout } from "./ResidentLayout";
 import { useEffect, useState } from "react";
 import { WorkOrder } from "../../types/WorkOrderTypes";
-import { getResident } from "../../constants/LocalStorage";
+import { getResident, getResidentAuthToken } from "../../constants/LocalStorage";
 import { WorkOrderApiRoutes } from "../../routes/ApiRoutes";
 import { showErrorMessage } from "../Toast";
 import { StatusColours } from "../../constants/AppConstants";
@@ -26,8 +26,14 @@ export const ActiveWorkOrderScreen = () => {
 
   const getActiveWorkOrders = async () => {
     const resident = getResident();
+    const authToken = getResidentAuthToken();
     const response = await fetch(
-      `${WorkOrderApiRoutes.GetResidentActiveWorkOrders}/${resident?.residentId}`
+      `${WorkOrderApiRoutes.GetResidentActiveWorkOrders}/${resident?.residentId}`,
+      {
+        headers: {
+            "Authorization": `Bearer ${authToken}`
+        }
+      }
     );
 
     if (!response.ok) {

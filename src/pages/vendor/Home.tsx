@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { WorkOrder } from "../../types/WorkOrderTypes";
-import { getVendor } from "../../constants/LocalStorage";
+import { getVendor, getVendorAuthToken } from "../../constants/LocalStorage";
 import { WorkOrderApiRoutes } from "../../routes/ApiRoutes";
 import { showErrorMessage } from "../../components/Toast";
 import CheckCircleOutlineIcon from "@mui/icons-material/Check";
@@ -27,8 +27,16 @@ export const VendorHome = () => {
 
   const getInActiveWorkOrders = async () => {
     const vendor = getVendor();
+
+    const authToken = getVendorAuthToken();
+
     const response = await fetch(
-      `${WorkOrderApiRoutes.GetVendorInActiveWorkOrders}/${vendor?.vendorId}`
+      `${WorkOrderApiRoutes.GetVendorInActiveWorkOrders}/${vendor?.vendorId}`,
+      {
+        headers: {
+          "Authorization": `Bearer ${authToken}`
+        }
+      }
     );
 
     if (!response.ok) {
@@ -63,10 +71,13 @@ export const VendorHome = () => {
       workOrderTitle,
     };
 
+    const authToken = getVendorAuthToken();
+
     const response = await fetch(`${WorkOrderApiRoutes.UpdateWorkOrder}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${authToken}`
       },
       body: JSON.stringify(body),
     });

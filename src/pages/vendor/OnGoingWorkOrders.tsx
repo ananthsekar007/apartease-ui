@@ -13,11 +13,14 @@ import {
   Typography,
 } from "@mui/material";
 import { WorkOrder } from "../../types/WorkOrderTypes";
-import { getVendor } from "../../constants/LocalStorage";
+import { getVendor, getVendorAuthToken } from "../../constants/LocalStorage";
 import { showErrorMessage } from "../../components/Toast";
 import { WorkOrderApiRoutes } from "../../routes/ApiRoutes";
 import { Resident } from "../../types/ResidentTypes";
-import { StatusColours, checkVendorValidRoute } from "../../constants/AppConstants";
+import {
+  StatusColours,
+  checkVendorValidRoute,
+} from "../../constants/AppConstants";
 import { UpdateStatusModal } from "../../components/vendor/modals/UpdateStatusModal";
 import { useNavigate } from "react-router-dom";
 
@@ -37,8 +40,15 @@ export const OnGoingWorkOrders = () => {
 
   const getOnGoingWorkOrders = async () => {
     const vendor = getVendor();
+    const authToken = getVendorAuthToken();
+
     const response = await fetch(
-      `${WorkOrderApiRoutes.GetVendorActiveWorkOrders}/${vendor?.vendorId}`
+      `${WorkOrderApiRoutes.GetVendorActiveWorkOrders}/${vendor?.vendorId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
     );
 
     if (!response.ok) {
@@ -52,12 +62,10 @@ export const OnGoingWorkOrders = () => {
   };
 
   useEffect(() => {
-    if(checkVendorValidRoute()) {
-
-        getOnGoingWorkOrders();
-    }
-    else {
-        navigate("/unauthorized");
+    if (checkVendorValidRoute()) {
+      getOnGoingWorkOrders();
+    } else {
+      navigate("/unauthorized");
     }
   }, []);
 

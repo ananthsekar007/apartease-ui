@@ -14,7 +14,7 @@ import {
   CardHeader,
   Typography,
 } from "@mui/material";
-import { getManager } from "../../constants/LocalStorage";
+import { getManager, getManagerAuthToken } from "../../constants/LocalStorage";
 import { ResidentApiRoutes } from "../../routes/ApiRoutes";
 import { Resident } from "../../types/ResidentTypes";
 import { ActiveResidentsTable } from "./ActiveResidentsTable";
@@ -35,8 +35,15 @@ export const ResidentTableContainer = () => {
 
   const getActiveResidents = async () => {
     const manager = getManager();
+    const authToken = getManagerAuthToken();
+
     const response = await fetch(
-      `${ResidentApiRoutes.GetActiveResidents}/${manager?.managerId}`
+      `${ResidentApiRoutes.GetActiveResidents}/${manager?.managerId}`,
+      {
+        headers: {
+          "Authorization": `Bearer ${authToken}`
+        }
+      }
     );
 
     if(!response.ok) {
@@ -52,8 +59,14 @@ export const ResidentTableContainer = () => {
 
   const getInActiveResidents = async () => {
     const manager = getManager();
+    const authToken = getManagerAuthToken();
     const response = await fetch(
-      `${ResidentApiRoutes.GetInactiveResidents}/${manager?.managerId}`
+      `${ResidentApiRoutes.GetInactiveResidents}/${manager?.managerId}`,
+      {
+        headers: {
+          "Authorization": `Bearer ${authToken}`
+        }
+      }
     );
 
     if(!response.ok) {

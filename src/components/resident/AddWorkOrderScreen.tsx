@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import { getResident } from "../../constants/LocalStorage";
+import { getResident, getResidentAuthToken } from "../../constants/LocalStorage";
 import { WorkOrderApiRoutes } from "../../routes/ApiRoutes";
 import { showErrorMessage } from "../Toast";
 import { WorkOrder } from "../../types/WorkOrderTypes";
@@ -27,8 +27,16 @@ export const AddWorkOrderScreen = () => {
 
   const getInActiveWorkOrders = async () => {
     const resident = getResident();
+
+    const authToken = getResidentAuthToken();
+
     const response = await fetch(
-      `${WorkOrderApiRoutes.GetResidentInActiveWorkOrders}/${resident?.residentId}`
+      `${WorkOrderApiRoutes.GetResidentInActiveWorkOrders}/${resident?.residentId}`,
+      {
+        headers: {
+          "Authorization": `Bearer ${authToken}`
+        }
+      }
     );
 
     if (!response.ok) {

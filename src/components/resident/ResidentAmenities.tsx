@@ -2,7 +2,7 @@ import { ResidentLayout } from "./ResidentLayout";
 import { Container, Button, Typography, Grid } from "@mui/material";
 import { useState, useEffect } from "react";
 import { Amenity } from "../../types/AmenityTypes";
-import { getResident } from "../../constants/LocalStorage";
+import { getResident, getResidentAuthToken } from "../../constants/LocalStorage";
 import { AmenityApiRoutes } from "../../routes/ApiRoutes";
 import { showErrorMessage } from "../Toast";
 import { BookAmenityCard } from "./BookAmenityCard";
@@ -13,8 +13,16 @@ export const ResidentAmenities = () => {
 
   const getAmenities = async () => {
     const resident = getResident();
+
+    const authToken = getResidentAuthToken();
+
     const response = await fetch(
-      `${AmenityApiRoutes.GetAmenityForApartment}/${resident?.apartmentId}`
+      `${AmenityApiRoutes.GetAmenityForApartment}/${resident?.apartmentId}`,
+      {
+        headers: {
+          "Authorization": `Bearer ${authToken}`
+        }
+      }
     );
     if (!response.ok) {
       const error = await response.text();

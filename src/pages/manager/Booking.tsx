@@ -13,7 +13,7 @@ import {
 import { useEffect, useState } from "react";
 import { AmenityBooking } from "../../types/AmenityTypes";
 import moment from "moment";
-import { getManager } from "../../constants/LocalStorage";
+import { getManager, getManagerAuthToken } from "../../constants/LocalStorage";
 import { AmenityBookingApiRoutes } from "../../routes/ApiRoutes";
 import { showErrorMessage } from "../../components/Toast";
 import { checkManagerValidRoute } from "../../constants/AppConstants";
@@ -25,8 +25,14 @@ export const ManagerBookings = () => {
 
   const getBookingsForManager = async () => {
     const manager = getManager();
+    const authToken = getManagerAuthToken();
     const response = await fetch(
-      `${AmenityBookingApiRoutes.GetAmenitiesForManager}/${manager?.managerId}`
+      `${AmenityBookingApiRoutes.GetAmenitiesForManager}/${manager?.managerId}`,
+      {
+        headers: {
+          "Authorization": `Bearer ${authToken}`
+        }
+      }
     );
     if (!response.ok) {
       const error = await response.text();

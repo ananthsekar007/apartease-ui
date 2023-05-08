@@ -7,6 +7,7 @@ import { UIButton } from "../../UIComponents/UIButton";
 import { useState } from "react";
 import { WorkOrderApiRoutes } from "../../../routes/ApiRoutes";
 import { showErrorMessage } from "../../Toast";
+import { getVendorAuthToken } from "../../../constants/LocalStorage";
 
 interface UpdateStatusModalProps {
   open: boolean;
@@ -40,10 +41,13 @@ export const UpdateStatusModal = (props: UpdateStatusModalProps) => {
 
     setLoading(true);
 
+    const authToken = getVendorAuthToken();
+
     const response = await fetch(`${WorkOrderApiRoutes.UpdateWorkOrder}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${authToken}`
       },
       body: JSON.stringify(body),
     });

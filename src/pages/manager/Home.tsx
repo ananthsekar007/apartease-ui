@@ -3,7 +3,7 @@ import { ManagerLayout } from "../../components/manager/ManagerLayout";
 import { Button, Container, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { AddApartmentModal } from "../../components/manager/modals/AddApartmentModal";
-import { getManager } from "../../constants/LocalStorage";
+import { getManager, getManagerAuthToken } from "../../constants/LocalStorage";
 import { ApartmentApiRoutes } from "../../routes/ApiRoutes";
 import { Apartment } from "../../types/ApartmentTypes";
 import ApartmentCard from "../../components/manager/ApartmentCard";
@@ -19,8 +19,14 @@ export const ManagerHome = () => {
 
   const getApartmentForManager = async () => {
     const manager = getManager();
+    const authToken = getManagerAuthToken();
     const response = await fetch(
-      `${ApartmentApiRoutes.GetApartmentForManager}/${manager?.managerId}`
+      `${ApartmentApiRoutes.GetApartmentForManager}/${manager?.managerId}`,
+      {
+        headers: {
+          "Authorization": `Bearer ${authToken}`
+        }
+      }
     );
 
     if(!response.ok) {

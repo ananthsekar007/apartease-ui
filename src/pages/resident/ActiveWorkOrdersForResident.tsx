@@ -2,7 +2,7 @@ import { ResidentLayout } from "../../components/resident/ResidentLayout";
 import { Container, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import { WorkOrder } from "../../types/WorkOrderTypes";
-import { getResident } from "../../constants/LocalStorage";
+import { getResident, getResidentAuthToken } from "../../constants/LocalStorage";
 import { ResidentApiRoutes } from "../../routes/ApiRoutes";
 import { showErrorMessage } from "../../components/Toast";
 import { ResidentPending } from "../../components/resident/ResidentPending";
@@ -16,9 +16,15 @@ export const ActiveWorkOrdersForResident = () => {
 
   const getActivityStatus = async () => {
     const resident = getResident();
+    const authToken = getResidentAuthToken();    
 
     const response = await fetch(
-      `${ResidentApiRoutes.GetResidentActivityStatus}/${resident?.residentId}`
+      `${ResidentApiRoutes.GetResidentActivityStatus}/${resident?.residentId}`,
+      {
+        headers: {
+            "Authorization": `Bearer ${authToken}`
+        }
+      }
     );
 
     if (!response.ok) {

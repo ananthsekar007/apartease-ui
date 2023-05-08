@@ -6,6 +6,7 @@ import { FormControlLabel, Switch, TextField } from "@mui/material";
 import { AmenityApiRoutes } from "../../../routes/ApiRoutes";
 import { Apartment } from "../../../types/ApartmentTypes";
 import { showErrorMessage } from "../../Toast";
+import { getManagerAuthToken } from "../../../constants/LocalStorage";
 
 interface AddAmenityModalProps {
   open: boolean;
@@ -36,10 +37,13 @@ export const AddAmenityModal = (props: AddAmenityModalProps) => {
 
     setLoading(true);
 
+    const authToken = getManagerAuthToken();
+
     const response = await fetch(AmenityApiRoutes.AddAmenity, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${authToken}`
       },
       body: JSON.stringify({
         ...addAmenityInput,

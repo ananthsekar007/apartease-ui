@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 import { VendorApiRoutes, WorkOrderApiRoutes } from "../../../routes/ApiRoutes";
 import { showErrorMessage, showSuccessMessage } from "../../Toast";
 import { UIButton } from "../../UIComponents/UIButton";
-import { getResident } from "../../../constants/LocalStorage";
+import { getResident, getResidentAuthToken } from "../../../constants/LocalStorage";
 
 interface AddWorkOrderModalProps {
   open: boolean;
@@ -31,12 +31,15 @@ export const AddWorkOrderModal = (props: AddWorkOrderModalProps) => {
 
     const resident = getResident();
 
+    const authToken = getResidentAuthToken();
+
     setLoading(true);
 
     const response = await fetch(WorkOrderApiRoutes.AddWorkOrder, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${authToken}`
       },
       body: JSON.stringify({
         ...addWorkOrderInput,
@@ -57,7 +60,14 @@ export const AddWorkOrderModal = (props: AddWorkOrderModalProps) => {
   };
 
   const getVendors = async () => {
-    const response = await fetch(VendorApiRoutes.GetVendors);
+
+    const authToken = getResidentAuthToken();
+
+    const response = await fetch(VendorApiRoutes.GetVendors, {
+      headers: {
+        "Authorization": `Bearer ${authToken}`
+      }
+    });
     if (!response.ok) {
       const error = await response.text();
       showErrorMessage(error);

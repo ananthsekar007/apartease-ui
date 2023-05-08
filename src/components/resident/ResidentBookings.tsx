@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { AmenityBooking } from "../../types/AmenityTypes";
-import { getResident } from "../../constants/LocalStorage";
+import { getResident, getResidentAuthToken } from "../../constants/LocalStorage";
 import { AmenityBookingApiRoutes } from "../../routes/ApiRoutes";
 import { showErrorMessage } from "../Toast";
 import moment from "moment";
@@ -31,8 +31,16 @@ export const ResidentBookingScreen = () => {
 
   const getResidentBooking = async () => {
     const resident = getResident();
+
+    const authToken = getResidentAuthToken();
+
     const response = await fetch(
-      `${AmenityBookingApiRoutes.GetAmenitiesForResident}/${resident?.residentId}`
+      `${AmenityBookingApiRoutes.GetAmenitiesForResident}/${resident?.residentId}`,
+      {
+        headers: {
+          "Authorization": `Bearer ${authToken}`
+        }
+      }
     );
     if (!response.ok) {
       const error = await response.text();

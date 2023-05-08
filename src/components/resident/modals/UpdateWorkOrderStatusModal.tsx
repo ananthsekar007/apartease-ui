@@ -13,6 +13,7 @@ import { WorkOrderApiRoutes } from "../../../routes/ApiRoutes";
 import { showErrorMessage } from "../../Toast";
 import { ResidentStatus } from "../../../constants/AppConstants";
 import "../../auth.css";
+import { getResidentAuthToken } from "../../../constants/LocalStorage";
 
 interface UpdateWorkOrderStatusModalProps {
   open: boolean;
@@ -47,10 +48,13 @@ export const UpdateWorkOrderStatusModal = (
 
     setLoading(true);
 
+    const authToken = getResidentAuthToken();
+
     const response = await fetch(`${WorkOrderApiRoutes.UpdateWorkOrder}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${authToken}`
       },
       body: JSON.stringify(body),
     });

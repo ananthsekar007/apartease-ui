@@ -3,7 +3,7 @@ import { ManagerLayout } from "../../components/manager/ManagerLayout";
 import { Button, Container, Typography, Grid } from "@mui/material";
 import { AmenityApiRoutes, ApartmentApiRoutes } from "../../routes/ApiRoutes";
 import { Apartment } from "../../types/ApartmentTypes";
-import { getManager } from "../../constants/LocalStorage";
+import { getManager, getManagerAuthToken } from "../../constants/LocalStorage";
 import AddIcon from "@mui/icons-material/Add";
 import NoDataImage from "../../assets/NoData.jpg";
 import { AddAmenityModal } from "../../components/manager/modals/AddAmenityModal";
@@ -32,8 +32,14 @@ export const ManageAmenities = () => {
 
   const getApartmentForManager = async () => {
     const manager = getManager();
+    const authToken = getManagerAuthToken();
     const response = await fetch(
-      `${ApartmentApiRoutes.GetApartmentForManager}/${manager?.managerId}`
+      `${ApartmentApiRoutes.GetApartmentForManager}/${manager?.managerId}`,
+      {
+        headers: {
+          "Authorization": `Bearer ${authToken}`
+        }
+      }
     );
 
     if (!response.ok) {
@@ -47,8 +53,15 @@ export const ManageAmenities = () => {
   };
 
   const getAmenitiesForApartment = async (apartmentId: number) => {
+
+    const authToken = getManagerAuthToken();
+
     const response = await fetch(
-      `${AmenityApiRoutes.GetAmenityForApartment}/${apartmentId}`
+      `${AmenityApiRoutes.GetAmenityForApartment}/${apartmentId}`, {
+        headers: {
+          "Authorization": `Bearer ${authToken}`
+        }
+      }
     );
     if (!response.ok) {
       const error = await response.text();

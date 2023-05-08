@@ -26,11 +26,13 @@ export const AddApartmentModal = (props: AddApartmentProps) => {
     setLoading(true);
 
     const manager = getManager();
+    const authToken = getManagerAuthToken();
 
     const response = await fetch(ApartmentApiRoutes.AddApartment, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${authToken}`
         },
         body: JSON.stringify({...addApartmentInput, managerId: manager?.managerId})
     })

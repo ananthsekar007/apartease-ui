@@ -16,6 +16,7 @@ import { Resident, ResidentChangeStatusType } from "../../types/ResidentTypes";
 import { UIButton } from "../UIComponents/UIButton";
 import { ResidentApiRoutes } from "../../routes/ApiRoutes";
 import { showErrorMessage } from "../Toast";
+import { getManagerAuthToken } from "../../constants/LocalStorage";
 
 const styles: any = {
   table: {
@@ -47,10 +48,13 @@ export const InActiveResidentsTable = ({
             status: false
         }
     
+        const authToken = getManagerAuthToken();
+
         const response = await fetch(`${ResidentApiRoutes.ChangeResidentStatus}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${authToken}`
           },
           body: JSON.stringify(data),
         });

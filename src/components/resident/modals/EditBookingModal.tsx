@@ -4,7 +4,7 @@ import { TextField, Tooltip } from "@mui/material";
 import { Info } from "@mui/icons-material";
 import { UIButton } from "../../UIComponents/UIButton";
 import { useState } from "react";
-import { getResident } from "../../../constants/LocalStorage";
+import { getResident, getResidentAuthToken } from "../../../constants/LocalStorage";
 import { AmenityBookingApiRoutes } from "../../../routes/ApiRoutes";
 import { showErrorMessage } from "../../Toast";
 
@@ -38,10 +38,13 @@ export const EditBookingModal = (props: EditBookingProps) => {
 
     setLoading(true);
 
+    const authToken = getResidentAuthToken();
+
     const response = await fetch(AmenityBookingApiRoutes.EditAmenityBooking, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${authToken}`
       },
       body: JSON.stringify(body),
     });
