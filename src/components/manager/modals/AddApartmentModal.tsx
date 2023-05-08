@@ -23,12 +23,17 @@ export const AddApartmentModal = (props: AddApartmentProps) => {
     const formEntries = new FormData(e.target).entries();
     const addApartmentInput = Object.fromEntries(formEntries);
 
+    let isError: boolean = false;
+
     Object.keys(addApartmentInput).forEach((input) => {
       if(addApartmentInput[input] == "" || addApartmentInput[input] == undefined) {
         showErrorMessage("Please fill all the fields!");
+        isError = true;
         return;
       }
     });
+
+    if(isError) return;
 
     setLoading(true);
 

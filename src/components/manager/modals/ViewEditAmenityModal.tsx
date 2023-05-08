@@ -48,12 +48,17 @@ export const ViewEditAmenityModal = (props: ViewEditAmenityModalProps) => {
     const formEntries = new FormData(e.target).entries();
     const editAmenityInput = Object.fromEntries(formEntries);
 
+    let isError: boolean = false;
+
     Object.keys(editAmenityInput).forEach((input) => {
       if(editAmenityInput[input] == "" || editAmenityInput[input] == undefined) {
         showErrorMessage("Please fill all the fields!");
+        isError = true;
         return;
       }
     });
+
+    if(isError) return;
 
     setLoading(true);
 

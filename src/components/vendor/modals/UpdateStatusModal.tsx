@@ -39,12 +39,17 @@ export const UpdateStatusModal = (props: UpdateStatusModalProps) => {
       cancelledByVendor: workOrder?.cancelledByVendor,
     };
 
+    let isError: boolean = false;
+
     Object.keys(updateStatusInput).forEach((input) => {
         if(updateStatusInput[input] == "" || updateStatusInput[input] == undefined) {
           showErrorMessage("Please select all the fields!");
+          isError = true;
           return;
         }
     });
+
+    if(isError) return;
 
     setLoading(true);
 

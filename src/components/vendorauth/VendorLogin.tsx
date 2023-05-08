@@ -22,12 +22,17 @@ export const VendorLogin = () => {
     const formEntries = new FormData(e.target).entries();
     const loginInput: any = Object.fromEntries(formEntries);
 
+    let isError: boolean = false;
+
     Object.keys(loginInput).forEach((input) => {
       if(loginInput[input] == "" || loginInput[input] == undefined) {
         showErrorMessage("Please fill all the fields!");
+        isError = true;
         return;
       }
     });
+
+    if(isError) return;
 
     if(!isValidEmail(loginInput.email)) {
       showErrorMessage("Check the email and try again!");

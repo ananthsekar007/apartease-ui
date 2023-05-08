@@ -34,12 +34,17 @@ export const UpdateWorkOrderStatusModal = (
     const formEntries = new FormData(e.target).entries();
     const updateWorkOrderInput: any = Object.fromEntries(formEntries);
 
+    let isError: boolean = false;
+
     Object.keys(updateWorkOrderInput).forEach((input) => {
         if(updateWorkOrderInput[input] == "" || updateWorkOrderInput[input] == undefined) {
           showErrorMessage("Please fill all the fields!");
+          isError = true;
           return;
         }
       });
+
+      if(isError) return;
 
     const body = {
       workOrderId: workOrder?.workOrderId,

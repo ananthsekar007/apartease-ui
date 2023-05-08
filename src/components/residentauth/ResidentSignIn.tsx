@@ -48,12 +48,17 @@ export const ResidentSignIn = () => {
     const formEntries = new FormData(e.target).entries();
     const signInInput: any = Object.fromEntries(formEntries);
 
+    let isError: boolean = false;
+
     Object.keys(signInInput).forEach((input) => {
       if(signInInput[input] == "" || signInInput[input] == undefined) {
         showErrorMessage("Please fill all the fields!");
+        isError = true;
         return;
       }
     });
+
+    if(isError) return;
 
     if(!isValidEmail(signInInput.email)) {
       showErrorMessage("Check the email and try again!");

@@ -153,12 +153,17 @@ const AddVendor = (props: AddVendorProps) => {
     const formEntries = new FormData(e.target).entries();
     const vendorInput: any = Object.fromEntries(formEntries);
 
+    let isError: boolean = false;
+
     Object.keys(vendorInput).forEach((input) => {
       if(vendorInput[input] == "" || vendorInput[input] == undefined) {
         showErrorMessage("Please fill all the fields!");
+        isError = true;
         return;
       }
     });
+
+    if(isError) return;
 
     if(!isValidEmail(vendorInput.email)) {
       showErrorMessage("Check the email and try again!");

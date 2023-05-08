@@ -25,12 +25,17 @@ export const EditBookingModal = (props: EditBookingProps) => {
     const formEntries = new FormData(e.target).entries();
     const bookAmenityInput: any = Object.fromEntries(formEntries);
 
+    let isError: boolean = false;
+
     Object.keys(bookAmenityInput).forEach((input) => {
       if(bookAmenityInput[input] == "" || bookAmenityInput[input] == undefined) {
         showErrorMessage("Please fill all the fields!");
+        isError = true;
         return;
       }
     });
+
+    if(isError) return;
 
     if(!isValidEmail(bookAmenityInput.guestEmail)) {
       showErrorMessage("Check the email and try again!");

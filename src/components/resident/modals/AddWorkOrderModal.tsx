@@ -29,12 +29,17 @@ export const AddWorkOrderModal = (props: AddWorkOrderModalProps) => {
     const formEntries = new FormData(e.target).entries();
     const addWorkOrderInput = Object.fromEntries(formEntries);
 
+    let isError: boolean = false;
+
     Object.keys(addWorkOrderInput).forEach((input) => {
       if(addWorkOrderInput[input] == "" || addWorkOrderInput[input] == undefined) {
         showErrorMessage("Please fill all the fields!");
+        isError = true;
         return;
       }
     });
+
+    if(isError) return;
 
     const resident = getResident();
 
