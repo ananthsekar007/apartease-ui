@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 import HomeIcon from '@mui/icons-material/Home';
 import { VendorRoutes } from "../../routes/VendorRoutes";
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
+import { vendorLogout } from "../../constants/LocalStorage";
 
 
 interface VendorLayoutProps {
@@ -66,7 +67,7 @@ export const VendorLayout = ({ children }: VendorLayoutProps) => {
   };
 
   const handleLogout = () => {
-    localStorage.clear();
+    vendorLogout();
     navigate("/");
   }
 
@@ -150,7 +151,7 @@ export const VendorLayout = ({ children }: VendorLayoutProps) => {
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
             >
-              <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+              {/* <MenuItem onClick={handleMenuClose}>Profile</MenuItem> */}
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </div>

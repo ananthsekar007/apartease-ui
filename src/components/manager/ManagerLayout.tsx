@@ -23,6 +23,7 @@ import { ManagerRoutes } from "../../routes/ManagerRoutes";
 import HomeIcon from '@mui/icons-material/Home';
 import PoolIcon from '@mui/icons-material/Pool';
 import BookIcon from '@mui/icons-material/Book';
+import { managerLogout } from "../../constants/LocalStorage";
 
 interface ManagerLayoutProps {
   children: any;
@@ -71,7 +72,7 @@ export const ManagerLayout = ({ children }: ManagerLayoutProps) => {
   };
 
   const handleLogout = () => {
-    localStorage.clear();
+    managerLogout();
     navigate("/");
   }
 
@@ -155,7 +156,7 @@ export const ManagerLayout = ({ children }: ManagerLayoutProps) => {
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
             >
-              <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+              {/* <MenuItem onClick={handleMenuClose}>Profile</MenuItem> */}
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </div>

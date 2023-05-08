@@ -63,3 +63,20 @@ export const setVendorAuthToken = (token: string) => {
 export const getVendorAuthToken = (): string | null => {
     return localStorage.getItem(AppEazeVendorToken);
 }
+
+export const managerLogout = () => {
+    localStorage.removeItem(AppEazeManager);
+    localStorage.removeItem(AppEazeManagerToken);
+}
+
+
+export const residentLogout = () => {
+    localStorage.removeItem(AppEazeResident);
+    localStorage.removeItem(AppEazeResidentToken);
+}
+
+
+export const vendorLogout = () => {
+    localStorage.removeItem(AppEazeVendor);
+    localStorage.removeItem(AppEazeVendorToken);
+}

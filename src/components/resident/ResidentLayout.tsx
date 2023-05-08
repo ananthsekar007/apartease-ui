@@ -24,6 +24,7 @@ import BookIcon from '@mui/icons-material/Book';
 import PoolIcon from '@mui/icons-material/Pool';
 import { ResidentRoutes } from "../../routes/ResidentRoutes";
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
+import { residentLogout } from "../../constants/LocalStorage";
 
 interface ResidentLayoutProps {
   children: any;
@@ -77,7 +78,7 @@ export const ResidentLayout = ({ children }: ResidentLayoutProps) => {
   };
 
   const handleLogout = () => {
-    localStorage.clear();
+    residentLogout();
     navigate("/");
   }
 
@@ -161,7 +162,7 @@ export const ResidentLayout = ({ children }: ResidentLayoutProps) => {
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
             >
-              <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+              {/* <MenuItem onClick={handleMenuClose}>Profile</MenuItem> */}
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </div>
